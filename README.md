@@ -37,3 +37,48 @@ Entregar em anexo ao relatório:
 - Os arquivos com os LOGs gerados pelo analisador léxico, referente aos programas de teste em X+++ com a listagem dos tokens reconhecidos pelo programa.
 
 A entrega deve ser realizada no MOODLE por um dos integrandes da equipe em um arquivo compactado (.ZIP).
+
+## Compilando o projeto
+
+A especificação da linguagem que atenderá aos requisitos do enunciado será feita no arquivo [langX++.jj](src/main/javacc/parser/langX.jj). Para compilar o projeto, o comando abaixo deve ser executado:
+
+```bash
+# Gera arquivos .java a partir da especificação
+mvn generate-sources package -q
+```
+
+Para testar a definição da linguagem, utilizar os arquivos de exemplos:
+
+```bash
+# Arquivo léxicamente correto, última linha da saída será "Program successfully analyzed."
+mvn exec:java '-Dexec.args="resources/exemplos/ssamples/expression.x' -q
+
+# Arquivo com erro léxico, última linha da saída será "3 Lexical Errors found"
+mvn exec:java '-Dexec.args=resources/exemplos/ssamples/bintree-erro-lexico.x' -q
+```
+
+## Preparando o arquivo de entrega
+
+Ao concluir o trabalho, executar o comando abaixo para preparar o arquivo de entrega:
+
+```bash
+# Prepara o arquivo para ser enviado no Moodle
+mvn package -q
+```
+
+Será gerado na pasta target o arquivo trabalho_compiladores_bruno_luan.zip com a seguinte estrutura:
+
+```text
+├── class
+├── code
+├── java
+└── jj
+```
+
+Em class estarão os arquivos class gerados pelo compilador Java, code estarão os códigos na linguagem X++ que serão criados para testar o compilador definido nessa atividade (esses código estão em src/main/javacc/code), java terá os arquivos Java gerados pelo JavaCC e jj estará a definição da linguagem.
+
+## Referências
+
+- [Generating Lexical Analyser and Parser with JavaCC](https://www.youtube.com/watch?v=UMXF14KV038)
+- [How to work with maven javacc plugin](https://ivanursul.com/how-to-work-with-maven-javacc-plugin)
+- [Filtering Some Distribution Files](https://maven.apache.org/plugins/maven-assembly-plugin/examples/single/filtering-some-distribution-files.html)
