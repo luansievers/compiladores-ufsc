@@ -1,0 +1,7 @@
+Lendo do file inputComErrosCompleto.c . . .
+Encountered " <primitivetype> "string "" at line 3, column 1.
+Was expecting:
+    "{" ...
+
+0 erros lexicos encontrados
+1 erros sintaticos encontrados

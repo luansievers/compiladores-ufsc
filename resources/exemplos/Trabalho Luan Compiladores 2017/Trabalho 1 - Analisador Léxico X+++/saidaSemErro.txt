@@ -1,0 +1,111 @@
+C:\Users\Luan\Google Drive\UFSC\INE5622-06238AB (20172) - Introdução a Compiladores\Trabalho 1 - Analisador Léxico X+++>java Teste codigoInputSemErro.txt
+Compilador X+++ - Grupo M - 2017.2
+Lendo do arquivo codigoInputSemErro.txt . . .
+Linha: 1 Coluna: 1 /*
+anoa
+anoa
+
+anoa
+
+*/  <blockComment>  7
+Linha: 8 Coluna: 1 class  class  10
+Linha: 8 Coluna: 7 Classe  <IDENT>  32
+Linha: 8 Coluna: 14 extends  extends  15
+Linha: 8 Coluna: 22 Teste  <IDENT>  32
+Linha: 8 Coluna: 27 {  {  37
+Linha: 10 Coluna: 9 constructor  constructor  11
+Linha: 10 Coluna: 20 (  (  35
+Linha: 10 Coluna: 21 )  )  36
+Linha: 10 Coluna: 22 {  {  37
+Linha: 11 Coluna: 17 if  if  17
+Linha: 11 Coluna: 20 (  (  35
+Linha: 11 Coluna: 21 ano  <IDENT>  32
+Linha: 11 Coluna: 25 ==  ==  49
+Linha: 11 Coluna: 28 7BFh  <int_constant>  26
+Linha: 11 Coluna: 32 )  )  36
+Linha: 11 Coluna: 34 int  <primitivetype>  25
+Linha: 11 Coluna: 38 idade  <IDENT>  32
+Linha: 11 Coluna: 44 =  =  46
+Linha: 11 Coluna: 46 34  <intLiteral>  30
+Linha: 11 Coluna: 49 else  else  14
+Linha: 11 Coluna: 54 idade  <IDENT>  32
+Linha: 11 Coluna: 60 =  =  46
+Linha: 11 Coluna: 62 null  null  29
+Linha: 11 Coluna: 66 ;  ;  42
+Linha: 12 Coluna: 17 char  <primitivetype>  25
+Linha: 12 Coluna: 22 email  <IDENT>  32
+Linha: 12 Coluna: 28 =  =  46
+Linha: 12 Coluna: 30 "asdasdadadad"  <stringLiteral>  27
+Linha: 13 Coluna: 17 float  <IDENT>  32
+Linha: 13 Coluna: 23 maisum  <IDENT>  32
+Linha: 13 Coluna: 30 =  =  46
+Linha: 13 Coluna: 32 1.22e-1  <floatLiteral>  31
+Linha: 13 Coluna: 39 ;  ;  42
+Linha: 13 Coluna: 41 //exemplo de comentario  <lineComment>  6
+Linha: 15 Coluna: 17 string  <primitivetype>  25
+Linha: 15 Coluna: 24 grupo  <IDENT>  32
+Linha: 15 Coluna: 30 =  =  46
+Linha: 15 Coluna: 32 "GrupoM"  <stringLiteral>  27
+Linha: 16 Coluna: 17 switch  switch  23
+Linha: 17 Coluna: 25 case  case  9
+Linha: 17 Coluna: 30 grupo  <IDENT>  32
+Linha: 17 Coluna: 36 !=  !=  52
+Linha: 17 Coluna: 39 null  null  29
+Linha: 18 Coluna: 17 break  break  8
+Linha: 19 Coluna: 17 default  default  12
+Linha: 19 Coluna: 25 null  null  29
+Linha: 20 Coluna: 17 end  <IDENT>  32
+Linha: 22 Coluna: 17 while  while  24
+Linha: 22 Coluna: 23 (  (  35
+Linha: 22 Coluna: 24 idade  <IDENT>  32
+Linha: 22 Coluna: 30 <  <  48
+Linha: 22 Coluna: 32 100  <intLiteral>  30
+Linha: 22 Coluna: 35 )  )  36
+Linha: 22 Coluna: 36 {  {  37
+Linha: 23 Coluna: 25 do  do  13
+Linha: 23 Coluna: 28 idade  <IDENT>  32
+Linha: 23 Coluna: 33 +  +  53
+Linha: 23 Coluna: 34 +  +  53
+Linha: 23 Coluna: 35 ;  ;  42
+Linha: 24 Coluna: 17 }  }  38
+Linha: 26 Coluna: 17 for  for  16
+Linha: 26 Coluna: 20 (  (  35
+Linha: 26 Coluna: 21 i  <IDENT>  32
+Linha: 26 Coluna: 22 =  =  46
+Linha: 26 Coluna: 23 0  <intLiteral>  30
+Linha: 26 Coluna: 24 ;  ;  42
+Linha: 26 Coluna: 26 i  <IDENT>  32
+Linha: 26 Coluna: 27 <  <  48
+Linha: 26 Coluna: 28 idade  <IDENT>  32
+Linha: 26 Coluna: 33 ;  ;  42
+Linha: 26 Coluna: 35 i  <IDENT>  32
+Linha: 26 Coluna: 36 -  -  54
+Linha: 26 Coluna: 37 -  -  54
+Linha: 26 Coluna: 38 )  )  36
+Linha: 26 Coluna: 39 {  {  37
+Linha: 27 Coluna: 25 print  print  19
+Linha: 27 Coluna: 31 "simmbolos"  <stringLiteral>  27
+Linha: 27 Coluna: 43 .  .  44
+Linha: 27 Coluna: 45 :  :  41
+Linha: 27 Coluna: 47 ,  ,  43
+Linha: 27 Coluna: 49 _  _  45
+Linha: 28 Coluna: 25 print  print  19
+Linha: 28 Coluna: 31 "operadores"  <stringLiteral>  27
+Linha: 28 Coluna: 44 >  >  47
+Linha: 28 Coluna: 46 <=  <=  50
+Linha: 28 Coluna: 49 >=  >=  51
+Linha: 28 Coluna: 52 *  *  55
+Linha: 28 Coluna: 54 /  /  56
+Linha: 28 Coluna: 56 %  %  57
+Linha: 30 Coluna: 17 }  }  38
+Linha: 31 Coluna: 17 return  return  21
+Linha: 31 Coluna: 24 new  new  18
+Linha: 31 Coluna: 28 Classe  <IDENT>  32
+Linha: 31 Coluna: 34 (  (  35
+Linha: 31 Coluna: 35 )  )  36
+Linha: 32 Coluna: 9 }  }  38
+Linha: 34 Coluna: 1 }  }  38
+Linha: 34 Coluna: 3   <EOF>  0
+Programa analisado com sucesso.
+
+C:\Users\Luan\Google Drive\UFSC\INE5622-06238AB (20172) - Introdução a Compiladores\Trabalho 1 - Analisador Léxico X+++>

@@ -1,0 +1,31 @@
+/* 
+aqui aqui 
+aqui aqui
+*/
+class Classe extends Teste{
+
+	constructor(){
+		string grupo = "GrupoM"
+		char email = "hahahahah"; //teste
+		float mergulho = 88e-1
+
+		switch
+			case grupo != null
+		break
+		default null
+		end
+	   	if ($ano == 7hhhh) int @idade = 8489 else idade = null;
+	
+		while (idade < 10000){
+			do idade++;
+		}
+
+		for(i=0; i<idade; i--){
+			print "simbolos' . : , _
+			print "operadores" > <= >= * / % 
+
+		}
+		return new Classe()
+	}
+
+}

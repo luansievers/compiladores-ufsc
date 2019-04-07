@@ -1,0 +1,19 @@
+Compilador X+++ - Versao 1.0 - 2017
+Lendo do arquivo program.x . . .
+
+*** program ***
+     Syncronizing Set: class 
+Ignoring token: <IDENT>
+Ignoring token: <IDENT>
+Ignoring token: <IDENT>
+Ignoring token: <IDENT>
+Ignoring token: <IDENT>
+Ignoring token: <stringLiteral>
+Found syncronizing token: class
+Encountered " <IDENT> "text "" at line 5, column 1.
+Was expecting one of:
+    <EOF> 
+    "class" ...
+    
+0 erros lexicos encontrados
+1 erros sintaticos encontrados

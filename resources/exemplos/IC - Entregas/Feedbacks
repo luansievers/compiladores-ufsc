@@ -1,0 +1,24 @@
+Analisador Léxico X+++ (7,0)
+especificação Léxica apresentada:  está gerando tokens a partir dos comentarios (deveriam ser descartados) faltou o símbolo de dois pontos
+Arquivo JJ compilou OK
+Arquivo java compilou OK
+Programas exemplo: exemplos muito simples e pouco completos
+
+Analisador SIntático X+++ PARTE 1 (8,0)
+Compilação do langx.jj   - ok (não usaram a organização em pacote)
+compilação do langx.java - ok (não usaram a organização em pacote)
+testes com programas X++  fornecidos  - ok mas os arquivos exemplo utilizados são muito simples. não testam todas as funcionalidades da linguagem
+teste com outros exemplos: ao compilar não reconheceu o fecha-chaves no final da classe (provavelmente alguma falha na especificação da gramática para as classes). O programa com erros usado para testes reconheceu o primeiro erro e terminou o programa (não reconheceu os demais erros)
+
+Analisador SIntático X+++ PARTE 2 (8,0)
+Compilação do langx.jj   - ok (não usaram a organização em pacote)
+compilação do langx.java - ok (não usaram a organização em pacote)
+testes com programas X++  fornecidos  - ok mas os arquivos exemplo utilizados são muito simples. não testam todas as funcionalidades da linguagem
+teste com outros exemplos: ao compilar não reconheceu o fecha-chaves no final da classe (provavelmente alguma falha na especificação da gramática para as classes). O programa com erros usado para testes reconheceu o primeiro erro e terminou o programa (não reconheceu os demais erros)
+
+Analisador Semântico X+++ ETAPA 1 (9,0)
+Pacote de classes sintaticTree: foram implementados os nodos float, doWhile e switchCase. Faltou os nodos para char e boolean
+Programa exemplo apresentado para teste dos nodos implementados: OK  log da árvore OK
+
+Analisador Semântico X+++ ETAPA 2 (10,0)
+

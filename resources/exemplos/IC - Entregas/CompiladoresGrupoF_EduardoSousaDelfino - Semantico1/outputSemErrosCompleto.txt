@@ -1,0 +1,128 @@
+Compilador X+++ - Versao 1.0 - 2017
+Lendo do arquivo inputSemErrosCompleto.c . . .
+0 erros lexicos encontrados
+0 erros sintaticos encontrados
+
+1: ListNode (ClassDeclNode)  ===> 2 null
+2: ClassDeclNode ===> Pessoa Compilador 3
+3: ClassBodyNode ===> null 4 12 24
+4: ListNode (VarDeclNode) ===> 5 8
+5: VarDeclNode ===> string 6
+6: ListNode (VarNode) ===> 7 null
+7: VarNode ===> genero 
+8: ListNode (VarDeclNode) ===> 9 null
+9: VarDeclNode ===> int 10
+10: ListNode (VarNode) ===> 11 null
+11: VarNode ===> idade 
+12: ListNode (ConstructDeclNode) ===> 13 null
+13: ConstructDeclNode ===> 14
+14: MethodBodyNode ===> 15 19
+15: ListNode (VarDeclNode) ===> 16 null
+16: VarDeclNode ===> string 17
+17: ListNode (VarNode) ===> 18 null
+18: VarNode ===> uMgenero 
+19: BlockNode ===> 20
+20: ListNode (StatementNode) ===> 21 null
+21: AtribNode ===> 22 23
+22: VarNode ===> genero 
+23: VarNode ===> uMgenero 
+24: ListNode (MethodDeclNode) ===> 25 72
+25: MethodDeclNode ===> string getGenero 26
+26: MethodBodyNode ===> 27 31
+27: ListNode (VarDeclNode) ===> 28 null
+28: VarDeclNode ===> int 29
+29: ListNode (VarNode) ===> 30 null
+30: VarNode ===> novoAno 
+31: BlockNode ===> 32
+32: ListNode (StatementNode) ===> 33 38
+33: AtribNode ===> 34 35
+34: VarNode ===> idade 
+35: AddNode ===> 36 - 37
+36: IntLitNode ===> 2017
+37: VarNode ===> novoAno 
+38: ListNode (StatementNode) ===> 39 53
+39: IfNode ===> 40 43 48
+40: RelationalNode ===> 41 < 42
+41: VarNode ===> idade 
+42: IntLitNode ===> 60
+43: BlockNode ===> 44
+44: ListNode (StatementNode) ===> 45 null
+45: AtribNode ===> 46 47
+46: VarNode ===> genero 
+47: VarNode ===> genero 
+48: BlockNode ===> 49
+49: ListNode (StatementNode) ===> 50 null
+50: AtribNode ===> 51 52
+51: VarNode ===> genero 
+52: StringLitNode ===> "idoso"
+53: ListNode (StatementNode) ===> 54 69
+54: SwitchNode ===> genero 55
+55: ListNode (SwitchCaseNode)  ===> 56 60
+56: SwitchCaseNode ===> case 57 58
+57: VarNode ===> mulher 
+58: PrintNode ===> 59
+59: StringLitNode ===> "feminino"
+60: ListNode (SwitchCaseNode)  ===> 61 65
+61: SwitchCaseNode ===> case 62 63
+62: VarNode ===> homem 
+63: PrintNode ===> 64
+64: StringLitNode ===> "masculino"
+65: ListNode (SwitchCaseNode)  ===> 66 null
+66: SwitchCaseNode ===> default null 67
+67: PrintNode ===> 68
+68: StringLitNode ===> "idoso"
+69: ListNode (StatementNode) ===> 70 null
+70: ReturnNode ===> 71
+71: VarNode ===> genero 
+72: ListNode (MethodDeclNode) ===> 73 null
+73: MethodDeclNode ===> void imprimeSerie 74
+74: MethodBodyNode ===> null 75
+75: BlockNode ===> 76
+76: ListNode (StatementNode) ===> 77 80
+77: VarDeclNode ===> int 78
+78: ListNode (VarNode) ===> 79 null
+79: VarNode ===> i 
+80: ListNode (StatementNode) ===> 81 99
+81: ForNode ===> 82 85 88 93
+82: AtribNode ===> 83 84
+83: VarNode ===> i 
+84: IntLitNode ===> 0
+85: RelationalNode ===> 86 < 87
+86: VarNode ===> i 
+87: IntLitNode ===> 6
+88: AtribNode ===> 89 90
+89: VarNode ===> i 
+90: AddNode ===> 91 + 92
+91: VarNode ===> i 
+92: IntLitNode ===> 1
+93: BlockNode ===> 94
+94: ListNode (StatementNode) ===> 95 null
+95: PrintNode ===> 96
+96: AddNode ===> 97 + 98
+97: StringConstNode ===> "Na creche. Idade: "
+98: VarNode ===> i 
+99: ListNode (StatementNode) ===> 100 116
+100: WhileNode ===> 101 104
+101: RelationalNode ===> 102 < 103
+102: VarNode ===> idade 
+103: IntLitNode ===> 60
+104: BlockNode ===> 105
+105: ListNode (StatementNode) ===> 106 110
+106: PrintNode ===> 107
+107: AddNode ===> 108 + 109
+108: StringConstNode ===> "Nao eh idoso: "
+109: VarNode ===> idade 
+110: ListNode (StatementNode) ===> 111 null
+111: AtribNode ===> 112 113
+112: VarNode ===> idade 
+113: AddNode ===> 114 + 115
+114: VarNode ===> idade 
+115: IntLitNode ===> 1
+116: ListNode (StatementNode) ===> 117 null
+117: DoWhileNode ===> 118 121
+118: AtribNode ===> 119 120
+119: VarNode ===> genero 
+120: StringLitNode ===> "idoso"
+121: RelationalNode ===> 122 > 123
+122: VarNode ===> idade 
+123: IntLitNode ===> 60

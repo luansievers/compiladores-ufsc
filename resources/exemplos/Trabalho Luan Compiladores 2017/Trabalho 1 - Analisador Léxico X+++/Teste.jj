@@ -1,0 +1,253 @@
+options {
+STATIC = false ;
+}
+PARSER_BEGIN(Teste)
+	import java.io.*;
+  class Teste {
+    private final static String inicio = "Compilador X+++ - Grupo M - 2017.2";
+    boolean varTeste = true;
+
+    public static void main( String[] args ) throws ParseException, TokenMgrError {
+      String filename = "";
+			Teste parser;
+			int i;
+			boolean ms = false;
+			System.out.println(inicio);
+      for (i = 0; i < args.length - 1; i++){
+        if ( args[i].toLowerCase().equals("-short") )
+          ms = true;
+        else {
+          System.out.println("Uso: java langX [-short] arquivo");
+          System.exit(0);
+        }
+      }
+
+      if (args[i].equals("-")){
+				System.out.println("Lendo da entrada padrao . . .");
+				parser = new Teste(System.in);
+			}else {
+        filename = args[args.length-1];
+				System.out.println("Lendo do arquivo " + filename + " . . .");
+				try {
+					parser = new Teste(new java.io.FileInputStream(filename));
+				} catch (java.io.FileNotFoundException e) {
+					System.out.println("Arquivo " + filename + " nao encontrado.");
+					return;
+				}
+			}
+      parser.varTeste = ms;
+      parser.program();
+			if (parser.token_source.foundLexError() != 0){
+				System.out.println(parser.token_source.foundLexError() + " erros lexicos encontrados");
+			}else{
+				System.out.println("Programa analisado com sucesso.");
+      }
+		}
+
+    public static String im(int x){
+      int k;
+      String s;
+      s = tokenImage[x];
+      k = s.lastIndexOf("\"");
+      try {
+        s = s.substring(1,k);
+      } catch (StringIndexOutOfBoundsException e){
+
+      }
+    return s;
+  }
+}
+PARSER_END(Teste)
+
+TOKEN_MGR_DECLS :
+{
+	int countLexError = 0;
+	public int foundLexError(){
+		return countLexError;
+	}
+
+}
+
+/* Espaços a serem desprezados no início de cada token */
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| "\f"
+}
+
+/* Cometários */
+TOKEN :
+{
+   < lineComment: "//" (~["\r"])*( <LETTER> | <DIGIT> )* >
+| < blockComment: "/*" (~["\r"])*( <LETTER> | <DIGIT> | "\n" | "\r" | " ")* "*/">
+}
+
+/* Palavras reservadas */
+TOKEN :
+{
+  < BREAK: "break" >
+| < CASE: "case" >
+| < CLASS: "class" >
+| < CONSTRUCTOR: "constructor" >
+| < DFAULT: "default" >
+| < DO: "do" >
+| < ELSE: "else" >
+| < EXTENDS: "extends" >
+| < FOR: "for" >
+| < IF: "if" >
+| < NEW: "new" >
+| < PRINT: "print" >
+| < READ: "read" >
+| < RETURN: "return" >
+| < SUPER: "super" >
+| < SWITCH: "switch" >
+| < WHILE: "while" >
+}
+
+/* Tipos Primitivos */
+TOKEN :
+{
+  < primitivetype: "int" | "string" | "char" | "boolean" | "double" >
+}
+
+/* constantes */
+TOKEN :
+{
+  < int_constant:(  // números decimais, octais, hexadecimais ou binários
+                  (["0"-"9"] (["0"-"9"])* ["d", "D"] ) |
+                  (["0"-"7"] (["0"-"7"])* ["o", "O"] ) |
+                  (["0"-"9"] (["0"-"7","A"-"F","a"-"f"])* ["h", "H"] ) |
+                  (["0"-"1"] (["0"-"1"])* ["b", "B"])
+                 ) >
+|
+
+  < stringLiteral : "\"" ( <LETTER> | <DIGIT> )* "\"" >
+|
+  < string_constant:    // constante string como "abcd bcda"
+      "\""( ~["\"","\n","\r"])* "\"" >
+|
+  < null_constant: "null" > // constante null
+|
+  < intLiteral 	: <DIGIT> (<DIGIT>)* >
+|
+  < floatLiteral : <intLiteral> "." ( <intLiteral> | <intLiteral> ( "e" | "E" )? ("-")? <intLiteral> )? |
+		   (<intLiteral>)? "." ( <intLiteral> | <intLiteral> ( "e" | "E" )? ("-")? <intLiteral> ) >
+
+}
+
+/* Identificadores */
+TOKEN :
+{
+  < IDENT: <LETTER> (<LETTER>|<DIGIT>|<UNDERLINE>)* >
+|
+  < #LETTER:["A"-"Z","a"-"z"] >
+|
+  < #DIGIT:["0"-"9"] >
+}
+
+/* Símbolos especiais */
+TOKEN :
+{
+  < LPAREN: "(" >
+| < RPAREN: ")" >
+| < LBRACE: "{" >
+| < RBRACE: "}" >
+| < LBRACKET: "[" >
+| < RBRACKET: "]" >
+| < COLON: ":" >
+| < SEMICOLON: ";" >
+| < COMMA: "," >
+| < DOT: "." >
+| < UNDERLINE: "_" >
+}
+
+/* Operadores */
+TOKEN :
+{
+  < ASSIGN: "=" >
+| < GT: ">" >
+| < LT: "<" >
+| < EQ: "==" >
+| < LE: "<=" >
+| < GE: ">=" >
+| < NEQ: "!=" >
+| < PLUS: "+" >
+| < MINUS: "-" >
+| < STAR: "*" >
+| < SLASH: "/" >
+| < REM: "%" >
+}
+
+/* Trata os erros léxicos */
+SPECIAL_TOKEN :
+{
+<INVALID_LEXICAL:
+(~ ["a"-"z", "A"-"Z",
+  "0"-"9",
+  "\"",
+  "(",
+  ")",
+  "[",
+  "]",
+  "{",
+  "}",
+  ";",
+  ",",
+  ".",
+  "=",
+  ">",
+  "<",
+  "!",
+  "+",
+  "-",
+  "*",
+  "/",
+  "%",
+  " ",
+  "\t",
+  "\n",
+  "\r",
+  "\f"
+])+>
+   {
+    System.err.println("Linha " + input_stream.getEndLine() +
+                           " - String invalido encontrado: " + image);
+    countLexError++;
+   }
+|
+   <INVALID_CONST:
+   "\"" (~ ["\n","\r","\""])* ["\n","\r"]>
+   {
+    System.err.println("Linha " + input_stream.getEndLine() +
+                           " - String constant has a \\n: " + image);
+    countLexError++;
+   }
+
+}
+
+JAVACODE void program()
+{
+Token t;
+    do
+    {
+    t = getNextToken();
+    Token st = t;
+        while ( st.specialToken != null)
+        st = st.specialToken;
+        do {
+           if ( varTeste )
+          System.out.println(st.image + "  " +
+                                 im(st.kind) + " " +
+                                 st.kind);
+           else
+              System.out.println("Linha: " + st.beginLine +
+                                 " Coluna: " + st.beginColumn +
+                                 " " + st.image +
+                                 "  " + im(st.kind) + "  "+t.kind);
+          st = st.next;
+        } while (st != t.next);
+    } while (t.kind != TesteConstants.EOF);
+}

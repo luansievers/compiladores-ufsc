@@ -1,0 +1,34 @@
+/* 
+anoa
+anoa
+
+anoa
+
+*/
+class Classe extends Teste{
+
+	constructor(){
+	   	if (ano == 7BFh) int idade = 34 else idade = null;
+		char email = "asdasdadadad"
+		float maisum = 1.22e-1; //exemplo de comentario
+
+		string grupo = "GrupoM"
+		switch
+			case grupo != null
+		break
+		default null
+		end
+	
+		while (idade < 100){
+			do idade++;
+		}
+
+		for(i=0; i<idade; i--){
+			print "simmbolos" . : , _
+			print "operadores" > <= >= * / % 
+
+		}
+		return new Classe()
+	}
+
+}

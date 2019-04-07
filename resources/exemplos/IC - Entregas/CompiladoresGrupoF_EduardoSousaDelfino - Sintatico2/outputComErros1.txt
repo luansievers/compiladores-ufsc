@@ -1,0 +1,71 @@
+Compilador X+++ - Versao 1.0 - 2017
+Lendo do arquivo inputComErros1.c . . .
+
+*** ifstat ***
+     Syncronizing Set: { } break ; class do for if print read return super switch while <primitivetype> 
+Ignoring token: <IDENT>
+Ignoring token: <
+Ignoring token: <intLiteral>
+Ignoring token: )
+Found syncronizing token: {
+Encountered " <IDENT> "idade "" at line 9, column 20.
+Was expecting:
+    "(" ...
+    
+
+*** whileStat ***
+     Syncronizing Set: { } break ; class do for if print read return super switch while <primitivetype> 
+Found syncronizing token: {
+Encountered " "{" "{ "" at line 13, column 34.
+Was expecting one of:
+    ")" ...
+    "[" ...
+    "." ...
+    "+" ...
+    "-" ...
+    "*" ...
+    "/" ...
+    "%" ...
+    
+
+*** switchCaseStat ***
+     Syncronizing Set: default case } 
+Ignoring token: =
+Ignoring token: :
+Ignoring token: print
+Ignoring token: <stringLiteral>
+Ignoring token: ;
+Found syncronizing token: case
+Encountered " "=" "= "" at line 18, column 41.
+Was expecting one of:
+    "[" ...
+    ":" ...
+    "." ...
+    
+
+*** switchCaseStat ***
+     Syncronizing Set: default case } 
+Ignoring token: print
+Ignoring token: <stringLiteral>
+Ignoring token: ;
+Found syncronizing token: default
+Encountered " "print" "print "" at line 22, column 25.
+Was expecting one of:
+    "[" ...
+    ":" ...
+    "." ...
+    
+
+*** doWhileStat ***
+     Syncronizing Set: { } break ; class do for if print read return super switch while <primitivetype> 
+Ignoring token: <IDENT>
+Ignoring token: <
+Ignoring token: <intLiteral>
+Ignoring token: )
+Found syncronizing token: ;
+Encountered " <IDENT> "idade "" at line 30, column 25.
+Was expecting:
+    "(" ...
+    
+0 erros lexicos encontrados
+5 erros sintaticos encontrados

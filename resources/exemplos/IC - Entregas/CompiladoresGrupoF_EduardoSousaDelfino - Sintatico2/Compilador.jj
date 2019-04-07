@@ -1,0 +1,724 @@
+options {
+STATIC = false ;
+DEBUG_LOOKAHEAD = true;
+}
+PARSER_BEGIN(Compilador)
+	import java.io.*;
+	public class Compilador {
+		final static String Version = "Compilador X+++ - Versao 1.0 - 2017";
+		int contParseError = 0;           // contador de erros sintáticos
+		boolean debug_recovery;   // controla verbose de recuperação de erros
+		Token lastError = null;
+		
+		public static void main( String[] args ) throws ParseException {
+			boolean debug = false;
+			boolean debug_recovery = false;
+			String filename = "";
+			Compilador parser;
+			int i;
+			boolean ms = false;
+			System.out.println(Version);
+			
+			for (i = 0; i < args.length - 1; i++){
+				if (args[i].equals("-debug_AS"))
+					debug = true;
+				else if (args[i].equals("-debug_recovery") )
+					debug_recovery = true;
+				else {
+					System.out.println("Uso: java langX [-debug_AS] " +
+						"[-debug_recovery] arquivo");
+					System.exit(0);
+				}
+			}
+			
+			if (args[i].equals("-")){       // lê da entrada padrão      
+				System.out.println("Lendo da entrada padrao . . .");
+				parser = new Compilador(System.in);
+			} else {       // lê do arquivo
+				filename = args[args.length-1];  
+				System.out.println("Lendo do arquivo " + filename + " . . .");
+				try {
+					parser = new Compilador(new java.io.FileInputStream(filename));
+				} catch (java.io.FileNotFoundException e) {
+					System.out.println("Arquivo " + filename + " nao encontrado.");
+					return;
+				}
+			}
+			parser.debug_recovery = debug_recovery;
+			if (!debug) parser.disable_tracing(); // desabilita verbose do AS
+			try {
+				parser.program();   // chama o método que faz a análise
+			} catch (ParseEOFException e){
+				System.err.println(e.getMessage());
+				parser.contParseError = 1;   // não existe recuperação de erros
+			} finally {
+				System.out.println(parser.token_source.foundLexError() + " erros lexicos encontrados");
+				System.out.println(parser.contParseError + " erros sintaticos encontrados");
+			}
+		}
+		
+		static public String im(int x){
+			int k;
+			String s;
+			s = tokenImage[x];
+			k = s.lastIndexOf("\"");
+			try {
+				s = s.substring(1,k);
+			} catch (StringIndexOutOfBoundsException e){
+				
+			}
+		return s;
+	}
+	boolean eof;    // variável que indica se EOF foi alcançado
+	// o método abaixo consome tokens até alcançar um que pertença ao conjunto
+	// de sincronização
+	void consumeUntil(RecoverySet g, ParseException e, String met)
+		throws ParseEOFException, ParseException{
+		Token tok;
+
+		if (debug_recovery){// informação sobre a recuperação
+			System.out.println();
+			System.out.println("*** " + met + " ***");
+			System.out.println("     Syncronizing Set: " + g);
+		}
+
+		if (g == null) throw e; // se o conjunto é null, propaga a exceção
+		tok = getToken(1); // pega token corrente
+		while (!eof) { // se não chegou ao fim do arquivo
+			if (g.contains(tok.kind)) {//achou um token no conjunto 
+				if (debug_recovery)
+					System.out.println("Found syncronizing token: " + im(tok.kind));
+					break;
+			}
+			if (debug_recovery)
+				System.out.println("Ignoring token: " + im(tok.kind));
+				getNextToken();     // pega próximo token       
+				tok = getToken(1);
+			if (tok.kind == EOF && ! g.contains(EOF) ) // fim da entrada?   
+				eof = true;
+		}
+		if (tok != lastError){
+			System.out.println(e.getMessage());
+			lastError = tok;
+			contParseError++;  // incrementa número de erros
+		}
+		if (eof) throw new ParseEOFException("EOF found prematurely.");
+	}
+}
+
+PARSER_END(Compilador)
+
+TOKEN_MGR_DECLS :
+{
+	int countLexError = 0;
+	public int foundLexError(){
+		return countLexError;
+	}
+
+}
+
+/* Espacos a serem desprezados no inicio de cada token */
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| "\f"
+}
+/* Cometários */
+
+SKIP : 
+{  
+  < lineComment: "//" (~["\r"])*( <LETTER> | <DIGIT> )* >
+| < blockComment: "/*" (~["\r"])*( <LETTER> | <DIGIT> | "\n" | "\r" | " ")* "*/">
+
+}
+
+/* Palavras reservadas */
+
+TOKEN :
+{
+  < BREAK: "break" >
+| < CASE: "case" >
+| < CLASS: "class" >
+| < CONSTRUCTOR: "constructor" >
+| < DFAULT: "default" >
+| < DO: "do" >
+| < ELSE: "else" >
+| < EXTENDS: "extends" >
+| < FOR: "for" >
+| < IF: "if" >
+| < NEW: "new" >
+| < PRINT: "print" >
+| < READ: "read" >
+| < RETURN: "return" >
+| < SUPER: "super" >
+| < SWITCH: "switch" >
+| < WHILE: "while" >
+}
+
+/* Tipos Primitivos */
+
+TOKEN :
+{
+  < primitivetype: "int" | "string" | "char" | "boolean" | "double" >
+}
+
+/* constantes */
+
+TOKEN :
+{
+  < int_constant : (  // números decimais, octais, hexadecimais ou binários
+                  (["0"-"9"] (["0"-"9"])* ["d", "D"] ) | 
+                  (["0"-"7"] (["0"-"7"])* ["o", "O"] ) |
+                  (["0"-"9"] (["0"-"7","A"-"F","a"-"f"])* ["h", "H"] ) |
+                  (["0"-"1"] (["0"-"1"])* ["b", "B"])
+                 ) >
+|
+
+  < stringLiteral : "\"" ( <LETTER> | <DIGIT> )* "\"" > // cadeias de letras e numeros exclusivamente
+|
+  < string_constant : "\""( ~["\"","\n","\r"])* "\"" > // constante string com letras, numeros e simbolos   
+|
+  < null_constant: "null" > // constante null
+| 
+  < intLiteral 	: <DIGIT> (<DIGIT>)* > // apenas numeros
+|
+  < floatLiteral :  <intLiteral> "." ( <intLiteral> | <intLiteral> ( "e" | "E" )? ("-")? <intLiteral> )? |	
+		   (<intLiteral>)? "." ( <intLiteral> | <intLiteral> ( "e" | "E" )? ("-")? <intLiteral> ) >
+
+}
+
+/* Identificadores */
+
+TOKEN :
+{
+  < IDENT: <LETTER> (<LETTER>|<DIGIT>|<UNDERLINE>)* >
+|
+  < #LETTER:["A"-"Z","a"-"z"] >
+|
+  < #DIGIT:["0"-"9"] >
+}
+
+/* Símbolos especiais */
+
+TOKEN :
+{
+  < LPAREN: "(" >
+| < RPAREN: ")" >
+| < LBRACE: "{" >
+| < RBRACE: "}" >
+| < LBRACKET: "[" >
+| < RBRACKET: "]" >
+| < COLON: ":" >
+| < SEMICOLON: ";" >
+| < COMMA: "," >
+| < DOT: "." >
+| < UNDERLINE: "_" >
+}
+
+/* Operadores */
+
+TOKEN :
+{
+  < ASSIGN: "=" >
+| < GT: ">" >
+| < LT: "<" >
+| < EQ: "==" >
+| < LE: "<=" >
+| < GE: ">=" >
+| < NEQ: "!=" >
+| < PLUS: "+" >
+| < MINUS: "-" >
+| < STAR: "*" >
+| < SLASH: "/" >
+| < REM: "%" >
+}
+
+/* Trata os erros léxicos */
+SPECIAL_TOKEN :
+{
+<INVALID_LEXICAL: 
+(~ ["a"-"z", "A"-"Z",
+  "0"-"9",
+  "\"",
+  "(",
+  ")",
+  "[",
+  "]",
+  "{",
+  "}",
+  ";",
+  ",",
+  ".",
+  "=",
+  ">",
+  "<",
+  "!",
+  "+",
+  "-",
+  "*",
+  "/",
+  "%",
+  " ",
+  "\t",
+  "\n",
+  "\r",
+  "\f"
+])+>
+   {
+    System.err.println("Linha " + input_stream.getEndLine() + 
+                           " - String invalido encontrado: " + image);
+    countLexError++;
+   }
+|
+   <INVALID_CONST: 
+   "\"" (~ ["\n","\r","\""])* ["\n","\r"]>
+   {
+    System.err.println("Line " + input_stream.getEndLine() + 
+                           " - String constant has a \\n: " + image);
+    countLexError++;
+   }
+
+}
+
+
+void program() throws ParseEOFException :
+{
+RecoverySet g = First.program;
+}
+{ 
+    <EOF> 
+|
+    classlist(g) 
+    try { 
+      <EOF> 
+    }
+    catch (ParseException e)
+    {
+       consumeUntil(g, e, "program");
+    }
+   [ program() ]
+}
+
+void classlist(RecoverySet g) throws ParseEOFException :
+{
+RecoverySet f = First.classlist.union(g);
+}
+{
+   classdecl(f) [ classlist(g) ]
+}
+
+void classdecl(RecoverySet g) throws ParseEOFException :
+{
+}
+{
+try {
+   <CLASS>  <IDENT> [ <EXTENDS> <IDENT> ] classbody(g)
+}
+catch (ParseException e)
+{
+    consumeUntil(g, e, "classdecl");
+}
+}
+
+void classbody(RecoverySet g) throws ParseEOFException :
+{
+RecoverySet f2 = new RecoverySet(SEMICOLON).union(g).remove(IDENT),
+            f3 = First.methoddecl.union(g).remove(IDENT),
+            f4 = First.constructdecl.union(f3).remove(IDENT),
+            f5 = First.vardecl.union(f4).remove(IDENT);
+}
+{
+try {
+   <LBRACE>
+      [classlist(f5)]
+      (LOOKAHEAD(3) vardecl(f2) <SEMICOLON>)*
+      (constructdecl(f4))*
+      (methoddecl(f3))*
+   <RBRACE>
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "classbody");
+}
+}
+
+void vardecl(RecoverySet g) throws ParseEOFException :
+{
+}
+{
+try {
+   ( <primitivetype> | <IDENT> )
+   <IDENT> ( <LBRACKET> <RBRACKET>)*
+  (<COMMA> <IDENT> ( <LBRACKET> <RBRACKET>)* )*
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "vardecl");
+}
+}
+
+void constructdecl(RecoverySet g) throws ParseEOFException :
+{
+}
+{
+try {
+    <CONSTRUCTOR> methodbody(g)
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "constructdecl");
+}
+}
+
+void methoddecl(RecoverySet g) throws ParseEOFException :
+{
+}
+{
+try {
+   ( <primitivetype> | <IDENT> ) (<LBRACKET> <RBRACKET>)*
+   <IDENT> methodbody(g)
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "methoddecl");
+}
+}
+
+void methodbody(RecoverySet g) throws ParseEOFException :
+{
+RecoverySet f = new RecoverySet(RPAREN).union(g);
+}
+{
+try {
+    <LPAREN> paramlist(f) <RPAREN> statement(g)
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "methodbody");
+}
+}
+
+void paramlist(RecoverySet g) throws ParseEOFException :
+{
+}
+{
+try {
+   [
+    (<primitivetype> | <IDENT>) <IDENT> (<LBRACKET> <RBRACKET>)*
+    (<COMMA> (<primitivetype> | <IDENT>) <IDENT> (<LBRACKET> <RBRACKET>)* )*
+   ]
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "paramlist");
+}
+}
+
+void statement(RecoverySet g) throws ParseEOFException :
+{
+RecoverySet f1 = new RecoverySet(SEMICOLON).union(g).remove(IDENT);
+RecoverySet f2 = new RecoverySet(RBRACE).union(g).remove(IDENT);
+}
+{
+try {
+    LOOKAHEAD(<IDENT> <IDENT>)
+    vardecl(f1) <SEMICOLON> 
+|
+    LOOKAHEAD(1)
+    atribstat(f1) <SEMICOLON>
+|
+    vardecl(f1) <SEMICOLON> 
+|
+    printstat(f1) <SEMICOLON>
+|
+    readstat(f1) <SEMICOLON>
+|
+    returnstat(f1) <SEMICOLON>
+|
+    superstat(f1) <SEMICOLON>
+|
+    ifstat(g)
+|
+    forstat(g)
+|
+	whileStat(g) 
+|
+    doWhileStat(f1) <SEMICOLON>
+|
+    switchStat(g) 
+|
+    <LBRACE> statlist(f2) <RBRACE>
+|
+    <BREAK> <SEMICOLON>
+|
+    <SEMICOLON>
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "statement");
+}
+}
+
+void atribstat(RecoverySet g) throws ParseEOFException :
+{
+RecoverySet f1 = new RecoverySet(ASSIGN).union(g);
+}
+{
+try {
+    lvalue(f1) <ASSIGN> ( alocexpression(g) | expression(g))
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "atribstat");
+}
+}
+
+void printstat(RecoverySet g) throws ParseEOFException :
+{
+}
+{
+try {
+    <PRINT> expression(g)
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "printstat");
+}
+}
+
+void readstat(RecoverySet g) throws ParseEOFException :
+{
+}
+{
+try {
+    <READ> lvalue(g)
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "readstat");
+}
+}
+
+void returnstat(RecoverySet g) throws ParseEOFException :
+{
+}
+{
+try {
+    <RETURN> [expression(g)]
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "returnstat");
+}
+}
+
+void superstat(RecoverySet g) throws ParseEOFException :
+{
+RecoverySet f = new RecoverySet(RPAREN).union(g);
+}
+{
+try {
+    <SUPER> <LPAREN> arglist(f) <RPAREN>
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "superstat");
+}
+}
+
+void ifstat(RecoverySet g) throws ParseEOFException :
+{
+RecoverySet f1 = new RecoverySet(RPAREN).union(g),
+            f2 = new RecoverySet(ELSE).union(g);
+}
+{
+try {
+    <IF> <LPAREN> expression(f1) <RPAREN> statement(f2)
+    [LOOKAHEAD(1) <ELSE> statement(g)]
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "ifstat");
+}
+}
+
+void forstat(RecoverySet g) throws ParseEOFException :
+{
+	RecoverySet f1 = new RecoverySet(SEMICOLON).union(g),
+            f2 = new RecoverySet(RPAREN).union(g);
+}
+{
+try {
+    <FOR> <LPAREN> [atribstat(f1)] <SEMICOLON>
+                   [expression(f1)] <SEMICOLON>
+                   [atribstat(f2)] <RPAREN>
+                    statement(g)
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "forstat");
+}
+}
+
+void whileStat(RecoverySet g) throws ParseEOFException :
+{
+	RecoverySet f = new RecoverySet(RPAREN).union(g);
+}
+{
+	try {
+		<WHILE> <LPAREN> expression(f) <RPAREN> statement(g)
+	}
+	catch (ParseException e)
+	{
+		consumeUntil(g, e, "whileStat");
+	}
+}
+
+void doWhileStat(RecoverySet g) throws ParseEOFException :
+{
+	RecoverySet f1 = new RecoverySet(LPAREN).union(g),
+            f2 = new RecoverySet(RPAREN).union(g);
+}
+{
+	try {
+		<DO> statement(f1) <LPAREN> expression(f2) <RPAREN>
+	}
+	catch (ParseException e)
+	{
+		consumeUntil(g, e, "doWhileStat");
+	} 
+}
+
+void switchStat(RecoverySet g) throws ParseEOFException :
+{
+	RecoverySet f = new RecoverySet(RBRACE);
+}
+{
+	try {
+		<SWITCH> <LPAREN> <IDENT> <RPAREN> <LBRACE> [switchCasesStat(f)] <RBRACE>
+	}
+	catch (ParseException e)
+	{
+		consumeUntil(g, e, "switchStat");
+	} 
+}
+
+void switchCasesStat(RecoverySet g) throws ParseEOFException :
+{
+	RecoverySet f = First.switchCasesStat.union(g);
+}
+{
+    switchCaseStat(f) [switchCasesStat(g)]
+}
+
+void switchCaseStat(RecoverySet g) throws ParseEOFException:
+{
+}
+{
+	try {
+		( <CASE> factor() | <DFAULT> ) <COLON> statement(g)
+	}
+	catch (ParseException e)
+	{
+		consumeUntil(g, e, "switchCaseStat");
+	}
+}
+
+void  statlist(RecoverySet g) throws ParseEOFException :
+{
+RecoverySet f = First.statlist.remove(IDENT).union(g);
+}
+{
+   statement(f) [ statlist(g)] 
+}
+
+void lvalue(RecoverySet g) throws ParseEOFException :
+{
+}
+{
+try {
+   <IDENT> (
+           <LBRACKET> expression(null) <RBRACKET> |
+           <DOT> <IDENT> [<LPAREN> arglist(null) <RPAREN>]
+         )*
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "lvalue");
+}
+}
+
+void alocexpression(RecoverySet g) throws ParseEOFException :
+{
+RecoverySet f1 = new RecoverySet(RPAREN).union(g),
+            f2 = new RecoverySet(RBRACKET).union(g);
+}
+{
+    <NEW> (
+             LOOKAHEAD(2) <IDENT> <LPAREN> arglist(f1) <RPAREN> |
+             ( <primitivetype> | <IDENT> )
+             (<LBRACKET> expression(f2) <RBRACKET>)+
+          )
+}
+
+void expression(RecoverySet g) throws ParseEOFException :
+{
+}
+{
+try {
+    numexpr() [( <LT> | <GT> | <LE> | <GE> | <EQ> | <NEQ>) numexpr()]
+}
+catch (ParseException e)
+{
+   consumeUntil(g, e, "expression");
+}
+}
+
+void numexpr() throws ParseEOFException :
+{
+}
+{
+    term() ((<PLUS> | <MINUS>) term())*
+}
+
+void term() throws ParseEOFException :
+{
+}
+{
+    unaryexpr() ((<STAR> | <SLASH>| <REM>) unaryexpr())*
+}
+
+void unaryexpr() throws ParseEOFException :
+{
+}
+{
+   [(<PLUS> | <MINUS>)] factor()
+}
+
+void factor() throws ParseEOFException :
+{
+}
+{    
+    ( 
+       <int_constant> | 
+	   <intLiteral> | 
+       <string_constant> | 
+	   <stringLiteral> | 
+	   <floatLiteral> | 
+       <null_constant> |
+       lvalue(null) |
+       <LPAREN> expression(null) <RPAREN>
+    )
+}
+
+void arglist(RecoverySet g) throws ParseEOFException :
+{
+RecoverySet f =  new RecoverySet(COMMA).union(g);
+}
+{
+    [expression(f) (<COMMA> expression(f))*]
+}

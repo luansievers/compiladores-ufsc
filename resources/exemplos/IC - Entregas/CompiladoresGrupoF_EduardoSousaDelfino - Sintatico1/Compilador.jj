@@ -1,0 +1,529 @@
+options {
+STATIC = false ;
+DEBUG_LOOKAHEAD = true;
+}
+PARSER_BEGIN(Compilador)
+	import java.io.*;
+	public class Compilador {
+		final static String Version = "Compilador X+++ - Versao 1.0 - 2017";
+		int contParseError = 0;           // contador de erros sintáticos
+		
+		public static void main( String[] args ) throws ParseException {
+			boolean debug = false;
+			String filename = "";
+			Compilador parser;
+			int i;
+			boolean ms = false;
+			System.out.println(Version);
+			
+			for (i = 0; i < args.length - 1; i++){
+				if (args[i].equals("-debug_AS"))
+					debug = true;
+				else {
+					System.out.println("Uso: java langX [-short] arquivo");
+					System.exit(0);
+				}
+			}
+			
+			if (args[i].equals("-")){       // lê da entrada padrão      
+				System.out.println("Lendo da entrada padrao . . .");
+				parser = new Compilador(System.in);
+			} else {       // lê do arquivo
+				filename = args[args.length-1];  
+				System.out.println("Lendo do arquivo " + filename + " . . .");
+				try {
+					parser = new Compilador(new java.io.FileInputStream(filename));
+				} catch (java.io.FileNotFoundException e) {
+					System.out.println("Arquivo " + filename + " nao encontrado.");
+					return;
+				}
+			}
+			
+			if (!debug) parser.disable_tracing(); // desabilita verbose do AS
+			try {
+				parser.program();   // chama o método que faz a análise
+			} catch (ParseException e){
+				System.err.println(e.getMessage());
+				parser.contParseError = 1;   // não existe recuperação de erros
+			} finally {
+				System.out.println(parser.token_source.foundLexError() + " erros lexicos encontrados");
+				System.out.println(parser.contParseError + " erros sintaticos encontrados");
+			}
+		}
+		
+		static public String im(int x){
+			int k;
+			String s;
+			s = tokenImage[x];
+			k = s.lastIndexOf("\"");
+			try {
+				s = s.substring(1,k);
+			} catch (StringIndexOutOfBoundsException e){
+				
+			}
+		return s;
+	}
+}
+
+PARSER_END(Compilador)
+
+TOKEN_MGR_DECLS :
+{
+	int countLexError = 0;
+	public int foundLexError(){
+		return countLexError;
+	}
+
+}
+
+/* Espacos a serem desprezados no inicio de cada token */
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| "\f"
+}
+/* Cometários */
+
+SKIP : 
+{  
+  < lineComment: "//" (~["\r"])*( <LETTER> | <DIGIT> )* >
+| < blockComment: "/*" (~["\r"])*( <LETTER> | <DIGIT> | "\n" | "\r" | " ")* "*/">
+
+}
+
+/* Palavras reservadas */
+
+TOKEN :
+{
+  < BREAK: "break" >
+| < CASE: "case" >
+| < CLASS: "class" >
+| < CONSTRUCTOR: "constructor" >
+| < DFAULT: "default" >
+| < DO: "do" >
+| < ELSE: "else" >
+| < EXTENDS: "extends" >
+| < FOR: "for" >
+| < IF: "if" >
+| < NEW: "new" >
+| < PRINT: "print" >
+| < READ: "read" >
+| < RETURN: "return" >
+| < SUPER: "super" >
+| < SWITCH: "switch" >
+| < WHILE: "while" >
+}
+
+/* Tipos Primitivos */
+
+TOKEN :
+{
+  < primitivetype: "int" | "string" | "char" | "boolean" | "double" >
+}
+
+/* constantes */
+
+TOKEN :
+{
+  < int_constant : (  // números decimais, octais, hexadecimais ou binários
+                  (["0"-"9"] (["0"-"9"])* ["d", "D"] ) | 
+                  (["0"-"7"] (["0"-"7"])* ["o", "O"] ) |
+                  (["0"-"9"] (["0"-"7","A"-"F","a"-"f"])* ["h", "H"] ) |
+                  (["0"-"1"] (["0"-"1"])* ["b", "B"])
+                 ) >
+|
+
+  < stringLiteral : "\"" ( <LETTER> | <DIGIT> )* "\"" > // cadeias de letras e numeros exclusivamente
+|
+  < string_constant : "\""( ~["\"","\n","\r"])* "\"" > // constante string com letras, numeros e simbolos   
+|
+  < null_constant: "null" > // constante null
+| 
+  < intLiteral 	: <DIGIT> (<DIGIT>)* > // apenas numeros
+|
+  < floatLiteral :  <intLiteral> "." ( <intLiteral> | <intLiteral> ( "e" | "E" )? ("-")? <intLiteral> )? |	
+		   (<intLiteral>)? "." ( <intLiteral> | <intLiteral> ( "e" | "E" )? ("-")? <intLiteral> ) >
+
+}
+
+/* Identificadores */
+
+TOKEN :
+{
+  < IDENT: <LETTER> (<LETTER>|<DIGIT>|<UNDERLINE>)* >
+|
+  < #LETTER:["A"-"Z","a"-"z"] >
+|
+  < #DIGIT:["0"-"9"] >
+}
+
+/* Símbolos especiais */
+
+TOKEN :
+{
+  < LPAREN: "(" >
+| < RPAREN: ")" >
+| < LBRACE: "{" >
+| < RBRACE: "}" >
+| < LBRACKET: "[" >
+| < RBRACKET: "]" >
+| < COLON: ":" >
+| < SEMICOLON: ";" >
+| < COMMA: "," >
+| < DOT: "." >
+| < UNDERLINE: "_" >
+}
+
+/* Operadores */
+
+TOKEN :
+{
+  < ASSIGN: "=" >
+| < GT: ">" >
+| < LT: "<" >
+| < EQ: "==" >
+| < LE: "<=" >
+| < GE: ">=" >
+| < NEQ: "!=" >
+| < PLUS: "+" >
+| < MINUS: "-" >
+| < STAR: "*" >
+| < SLASH: "/" >
+| < REM: "%" >
+}
+
+/* Trata os erros léxicos */
+SPECIAL_TOKEN :
+{
+<INVALID_LEXICAL: 
+(~ ["a"-"z", "A"-"Z",
+  "0"-"9",
+  "\"",
+  "(",
+  ")",
+  "[",
+  "]",
+  "{",
+  "}",
+  ";",
+  ",",
+  ".",
+  "=",
+  ">",
+  "<",
+  "!",
+  "+",
+  "-",
+  "*",
+  "/",
+  "%",
+  " ",
+  "\t",
+  "\n",
+  "\r",
+  "\f"
+])+>
+   {
+    System.err.println("Linha " + input_stream.getEndLine() + 
+                           " - String invalido encontrado: " + image);
+    countLexError++;
+   }
+|
+   <INVALID_CONST: 
+   "\"" (~ ["\n","\r","\""])* ["\n","\r"]>
+   {
+    System.err.println("Line " + input_stream.getEndLine() + 
+                           " - String constant has a \\n: " + image);
+    countLexError++;
+   }
+
+}
+
+
+
+void program() :
+{
+}
+{
+    [ classlist() ] <EOF>
+}
+
+void classlist(): 
+{
+}
+{
+   classdecl() [ classlist() ]
+}
+
+
+void classdecl():
+{
+}
+{
+   <CLASS>  <IDENT> [ <EXTENDS> <IDENT> ] classbody() 
+}
+
+void classbody():
+{                         
+}
+{
+   <LBRACE>
+      [classlist()]
+      (LOOKAHEAD(3) vardecl() <SEMICOLON>)*
+      (constructdecl())*
+      (methoddecl())* 
+   <RBRACE>
+}
+
+
+void vardecl():
+{
+}
+{
+   ( <primitivetype> | <IDENT> ) 
+   <IDENT> ( <LBRACKET> <RBRACKET>)* 
+  (<COMMA> <IDENT> ( <LBRACKET> <RBRACKET>)* )*  
+}
+
+void constructdecl():
+{
+}
+{
+    <CONSTRUCTOR> methodbody()
+
+}
+
+
+void methoddecl():
+{
+}
+{
+   ( <primitivetype> | <IDENT> ) (<LBRACKET> <RBRACKET>)* 
+   <IDENT> methodbody()
+}
+
+void methodbody():
+{
+}
+{
+    <LPAREN> paramlist() <RPAREN> statement()
+}
+
+void paramlist():
+{
+}
+{
+   [
+    (<primitivetype> | <IDENT>) <IDENT> (<LBRACKET> <RBRACKET>)* 
+    (<COMMA> (<primitivetype> | <IDENT>) <IDENT> (<LBRACKET> <RBRACKET>)* )*
+   ]
+}
+
+void statement():
+{
+}
+{
+    LOOKAHEAD(2)
+    vardecl() <SEMICOLON>
+|
+    atribStat() <SEMICOLON> 
+|
+    printStat() <SEMICOLON>
+|
+    readStat() <SEMICOLON>
+|
+    returnStat() <SEMICOLON>
+|
+    superStat() <SEMICOLON>
+|
+    ifStat() 
+|
+    forStat() 
+|
+	whileStat() 
+|
+    doWhileStat() <SEMICOLON>
+|
+    switchStat() 
+|
+    <LBRACE> statlist() <RBRACE> 
+|
+    <BREAK> <SEMICOLON>
+|
+    <SEMICOLON>
+}
+
+
+void atribStat():
+{
+}
+{
+    lvalue() <ASSIGN> ( alocexpression() | expression())
+}
+
+void printStat():
+{
+}
+{
+    <PRINT> expression()
+}
+
+void readStat():
+{
+}
+{
+    <READ> lvalue()
+}
+
+
+void returnStat():
+{
+}
+{  
+    <RETURN> [expression()]
+}
+
+
+void superStat():
+{
+}
+{
+    <SUPER> <LPAREN> arglist() <RPAREN>
+}
+
+void ifStat():
+{
+}
+{
+    <IF> <LPAREN> expression() <RPAREN> statement()
+    [LOOKAHEAD(1) <ELSE> statement()]
+}
+
+
+
+void forStat():
+{
+}
+{
+    <FOR> <LPAREN> [atribStat()] <SEMICOLON>
+                   [expression()] <SEMICOLON>
+                   [atribStat()] <RPAREN>
+                    statement()
+}
+
+void whileStat():
+{
+}
+{
+    <WHILE> <LPAREN> expression() <RPAREN> statement()
+}
+
+void doWhileStat():
+{
+}
+{
+    <DO> statement() <LPAREN> expression() <RPAREN>
+}
+
+void switchStat():
+{
+}
+{
+    <SWITCH> <LPAREN> <IDENT> <RPAREN> <LBRACE> [switchCasesStat()] <RBRACE>
+}
+
+void switchCasesStat():
+{
+}
+{
+    switchCaseStat() [switchCasesStat()]
+}
+
+void switchCaseStat():
+{
+}
+{
+    ( <CASE> factor() | <DFAULT> ) <COLON> statement()
+}
+
+void  statlist() :
+{
+}
+{
+   statement() [statlist()]
+}
+
+void lvalue() :
+{
+}
+{
+   <IDENT> (
+           <LBRACKET> expression() <RBRACKET> |
+           <DOT> <IDENT> [<LPAREN> arglist() <RPAREN>]
+         )*
+}
+
+void alocexpression() :
+{
+}
+{
+    <NEW> ( 
+             LOOKAHEAD(2) <IDENT> <LPAREN> arglist() <RPAREN> | 
+             ( <primitivetype> | <IDENT> )  
+             (<LBRACKET> expression() <RBRACKET>)+
+          )
+} 
+
+void expression() :
+{
+}
+{
+    numexpr() [( <LT> | <GT> | <LE> | <GE> | <EQ> | <NEQ>) numexpr()]
+}
+
+void numexpr():
+{
+}
+{
+    term() ((<PLUS> | <MINUS>) term())*
+}
+
+void term():
+{
+}
+{
+    unaryexpr() ((<STAR> | <SLASH>| <REM>) unaryexpr())*
+}
+
+void unaryexpr() :
+{
+}
+{
+   [(<PLUS> | <MINUS>)] factor()
+}
+
+
+void factor():
+{
+}
+{
+    (
+       <int_constant> | 
+       <intLiteral> | 
+       <string_constant> | 
+       <stringLiteral> | 
+       <null_constant> |
+       lvalue() |
+       <LPAREN> expression() <RPAREN>)
+}
+
+void arglist():
+{
+}
+{
+    [expression() (<COMMA> expression())*]
+}

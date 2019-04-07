@@ -1,0 +1,470 @@
+Compilador X+++ - Versao 1.0 - 2017
+Lendo do arquivo inputSemErrosCompleto2.c . . .
+Call:   program
+  Call:   classlist
+    Call:   classdecl
+      Consumed token: <"class" at line 1 column 1>
+      Consumed token: <<IDENT>: "Compilador" at line 1 column 7>
+      Call:   classbody
+        Consumed token: <"{" at line 1 column 17>
+        Call:   vardecl(LOOKING AHEAD...)
+          Visited token: <<primitivetype>: "string" at line 3 column 1>; Expected token: <<primitivetype>>
+          Visited token: <<IDENT>: "genero" at line 3 column 8>; Expected token: <<IDENT>>
+          Visited token: <";" at line 3 column 14>; Expected token: <"[">
+          Visited token: <";" at line 3 column 14>; Expected token: <",">
+        Return: vardecl(LOOKAHEAD SUCCEEDED)
+        Visited token: <";" at line 3 column 14>; Expected token: <";">
+        Call:   vardecl
+          Consumed token: <<primitivetype>: "string" at line 3 column 1>
+          Consumed token: <<IDENT>: "genero" at line 3 column 8>
+        Return: vardecl
+        Consumed token: <";" at line 3 column 14>
+        Call:   vardecl(LOOKING AHEAD...)
+          Visited token: <<primitivetype>: "int" at line 4 column 1>; Expected token: <<primitivetype>>
+          Visited token: <<IDENT>: "idade" at line 4 column 5>; Expected token: <<IDENT>>
+          Visited token: <";" at line 4 column 10>; Expected token: <"[">
+          Visited token: <";" at line 4 column 10>; Expected token: <",">
+        Return: vardecl(LOOKAHEAD SUCCEEDED)
+        Visited token: <";" at line 4 column 10>; Expected token: <";">
+        Call:   vardecl
+          Consumed token: <<primitivetype>: "int" at line 4 column 1>
+          Consumed token: <<IDENT>: "idade" at line 4 column 5>
+        Return: vardecl
+        Consumed token: <";" at line 4 column 10>
+        Call:   vardecl(LOOKING AHEAD...)
+          Visited token: <<IDENT>: "float" at line 5 column 1>; Expected token: <<primitivetype>>
+          Visited token: <<IDENT>: "float" at line 5 column 1>; Expected token: <<IDENT>>
+          Visited token: <<IDENT>: "array" at line 5 column 7>; Expected token: <<IDENT>>
+          Visited token: <"[" at line 5 column 12>; Expected token: <"[">
+          Call:   vardecl
+            Consumed token: <<IDENT>: "float" at line 5 column 1>
+            Consumed token: <<IDENT>: "array" at line 5 column 7>
+            Consumed token: <"[" at line 5 column 12>
+            Consumed token: <"]" at line 5 column 13>
+          Return: vardecl
+          Consumed token: <";" at line 5 column 14>
+          Call:   vardecl(LOOKING AHEAD...)
+            Visited token: <"constructor" at line 7 column 9>; Expected token: <<primitivetype>>
+            Visited token: <"constructor" at line 7 column 9>; Expected token: <<IDENT>>
+          Return: vardecl(LOOKAHEAD FAILED)
+          Call:   constructdecl
+            Consumed token: <"constructor" at line 7 column 9>
+            Call:   methodbody
+              Consumed token: <"(" at line 7 column 20>
+              Call:   paramlist
+                Consumed token: <<primitivetype>: "string" at line 7 column 21>
+                Consumed token: <<IDENT>: "uMgenero" at line 7 column 28>
+              Return: paramlist
+              Consumed token: <")" at line 7 column 36>
+              Call:   statement
+                Call:   vardecl(LOOKING AHEAD...)
+                  Visited token: <"{" at line 7 column 37>; Expected token: <<primitivetype>>
+                  Visited token: <"{" at line 7 column 37>; Expected token: <<IDENT>>
+                Return: vardecl(LOOKAHEAD FAILED)
+                Consumed token: <"{" at line 7 column 37>
+                Call:   statlist
+                  Call:   statement
+                    Call:   vardecl(LOOKING AHEAD...)
+                      Visited token: <<IDENT>: "genero" at line 8 column 17>; Expected token: <<primitivetype>>
+                      Visited token: <<IDENT>: "genero" at line 8 column 17>; Expected token: <<IDENT>>
+                      Visited token: <"=" at line 8 column 24>; Expected token: <<IDENT>>
+                    Return: vardecl(LOOKAHEAD FAILED)
+                    Call:   atribStat
+                      Call:   lvalue
+                        Consumed token: <<IDENT>: "genero" at line 8 column 17>
+                      Return: lvalue
+                      Consumed token: <"=" at line 8 column 24>
+                      Call:   expression
+                        Call:   numexpr
+                          Call:   term
+                            Call:   unaryexpr
+                              Call:   factor
+                                Call:   lvalue
+                                  Consumed token: <<IDENT>: "uMgenero" at line 8 column 26>
+                                Return: lvalue
+                              Return: factor
+                            Return: unaryexpr
+                          Return: term
+                        Return: numexpr
+                      Return: expression
+                    Return: atribStat
+                    Consumed token: <";" at line 8 column 34>
+                  Return: statement
+                Return: statlist
+                Consumed token: <"}" at line 9 column 9>
+              Return: statement
+            Return: methodbody
+          Return: constructdecl
+          Call:   methoddecl
+            Consumed token: <<primitivetype>: "string" at line 11 column 9>
+            Consumed token: <<IDENT>: "umMetodo" at line 11 column 16>
+            Call:   methodbody
+              Consumed token: <"(" at line 11 column 24>
+              Call:   paramlist
+                Consumed token: <<primitivetype>: "int" at line 11 column 25>
+                Consumed token: <<IDENT>: "novoAno" at line 11 column 29>
+              Return: paramlist
+              Consumed token: <")" at line 11 column 36>
+              Call:   statement
+                Call:   vardecl(LOOKING AHEAD...)
+                  Visited token: <"{" at line 11 column 37>; Expected token: <<primitivetype>>
+                  Visited token: <"{" at line 11 column 37>; Expected token: <<IDENT>>
+                Return: vardecl(LOOKAHEAD FAILED)
+                Consumed token: <"{" at line 11 column 37>
+                Call:   statlist
+                  Call:   statement
+                    Call:   vardecl(LOOKING AHEAD...)
+                      Visited token: <"for" at line 13 column 17>; Expected token: <<primitivetype>>
+                      Visited token: <"for" at line 13 column 17>; Expected token: <<IDENT>>
+                    Return: vardecl(LOOKAHEAD FAILED)
+                    Call:   forStat
+                      Consumed token: <"for" at line 13 column 17>
+                      Consumed token: <"(" at line 13 column 20>
+                      Call:   atribStat
+                        Call:   lvalue
+                          Consumed token: <<IDENT>: "i" at line 13 column 21>
+                        Return: lvalue
+                        Consumed token: <"=" at line 13 column 22>
+                        Call:   expression
+                          Call:   numexpr
+                            Call:   term
+                              Call:   unaryexpr
+                                Call:   factor
+                                  Consumed token: <<intLiteral>: "0" at line 13 column 23>
+                                Return: factor
+                              Return: unaryexpr
+                            Return: term
+                          Return: numexpr
+                        Return: expression
+                      Return: atribStat
+                      Consumed token: <";" at line 13 column 24>
+                      Call:   expression
+                        Call:   numexpr
+                          Call:   term
+                            Call:   unaryexpr
+                              Call:   factor
+                                Call:   lvalue
+                                  Consumed token: <<IDENT>: "i" at line 13 column 26>
+                                Return: lvalue
+                              Return: factor
+                            Return: unaryexpr
+                          Return: term
+                        Return: numexpr
+                        Consumed token: <"<" at line 13 column 27>
+                        Call:   numexpr
+                          Call:   term
+                            Call:   unaryexpr
+                              Call:   factor
+                                Call:   lvalue
+                                  Consumed token: <<IDENT>: "idade" at line 13 column 28>
+                                Return: lvalue
+                              Return: factor
+                            Return: unaryexpr
+                          Return: term
+                        Return: numexpr
+                      Return: expression
+                      Consumed token: <";" at line 13 column 33>
+                      Call:   atribStat
+                        Call:   lvalue
+                          Consumed token: <<IDENT>: "i" at line 13 column 35>
+                        Return: lvalue
+                        Consumed token: <"=" at line 13 column 36>
+                        Call:   expression
+                          Call:   numexpr
+                            Call:   term
+                              Call:   unaryexpr
+                                Call:   factor
+                                  Call:   lvalue
+                                    Consumed token: <<IDENT>: "i" at line 13 column 37>
+                                  Return: lvalue
+                                Return: factor
+                              Return: unaryexpr
+                            Return: term
+                            Consumed token: <"+" at line 13 column 38>
+                            Call:   term
+                              Call:   unaryexpr
+                                Call:   factor
+                                  Consumed token: <<intLiteral>: "1" at line 13 column 39>
+                                Return: factor
+                              Return: unaryexpr
+                            Return: term
+                          Return: numexpr
+                        Return: expression
+                      Return: atribStat
+                      Consumed token: <")" at line 13 column 40>
+                      Call:   statement
+                        Call:   vardecl(LOOKING AHEAD...)
+                          Visited token: <"{" at line 13 column 41>; Expected token: <<primitivetype>>
+                          Visited token: <"{" at line 13 column 41>; Expected token: <<IDENT>>
+                        Return: vardecl(LOOKAHEAD FAILED)
+                        Consumed token: <"{" at line 13 column 41>
+                        Call:   statlist
+                          Call:   statement
+                            Call:   vardecl(LOOKING AHEAD...)
+                              Visited token: <<IDENT>: "array" at line 14 column 25>; Expected token: <<primitivetype>>
+                              Visited token: <<IDENT>: "array" at line 14 column 25>; Expected token: <<IDENT>>
+                              Visited token: <"[" at line 14 column 30>; Expected token: <<IDENT>>
+                            Return: vardecl(LOOKAHEAD FAILED)
+                            Call:   atribStat
+                              Call:   lvalue
+                                Consumed token: <<IDENT>: "array" at line 14 column 25>
+                                Consumed token: <"[" at line 14 column 30>
+                                Call:   expression
+                                  Call:   numexpr
+                                    Call:   term
+                                      Call:   unaryexpr
+                                        Call:   factor
+                                          Call:   lvalue
+                                            Consumed token: <<IDENT>: "i" at line 14 column 31>
+                                          Return: lvalue
+                                        Return: factor
+                                      Return: unaryexpr
+                                    Return: term
+                                  Return: numexpr
+                                Return: expression
+                                Consumed token: <"]" at line 14 column 32>
+                              Return: lvalue
+                              Consumed token: <"=" at line 14 column 34>
+                              Call:   expression
+                                Call:   numexpr
+                                  Call:   term
+                                    Call:   unaryexpr
+                                      Call:   factor
+                                        Call:   lvalue
+                                          Consumed token: <<IDENT>: "idade" at line 14 column 36>
+                                        Return: lvalue
+                                      Return: factor
+                                    Return: unaryexpr
+                                  Return: term
+                                  Consumed token: <"+" at line 14 column 42>
+                                  Call:   term
+                                    Call:   unaryexpr
+                                      Call:   factor
+                                        Consumed token: <<intLiteral>: "2" at line 14 column 44>
+                                      Return: factor
+                                    Return: unaryexpr
+                                  Return: term
+                                Return: numexpr
+                              Return: expression
+                            Return: atribStat
+                            Consumed token: <";" at line 14 column 45>
+                          Return: statement
+                          Call:   statlist
+                            Call:   statement
+                              Call:   vardecl(LOOKING AHEAD...)
+                                Visited token: <"print" at line 15 column 25>; Expected token: <<primitivetype>>
+                                Visited token: <"print" at line 15 column 25>; Expected token: <<IDENT>>
+                              Return: vardecl(LOOKAHEAD FAILED)
+                              Call:   printStat
+                                Consumed token: <"print" at line 15 column 25>
+                                Call:   expression
+                                  Call:   numexpr
+                                    Call:   term
+                                      Call:   unaryexpr
+                                        Call:   factor
+                                          Consumed token: <<string_constant>: ""contagem: "" at line 15 column 31>
+                                        Return: factor
+                                      Return: unaryexpr
+                                    Return: term
+                                    Consumed token: <"+" at line 15 column 44>
+                                    Call:   term
+                                      Call:   unaryexpr
+                                        Call:   factor
+                                          Call:   lvalue
+                                            Consumed token: <<IDENT>: "i" at line 15 column 46>
+                                          Return: lvalue
+                                        Return: factor
+                                      Return: unaryexpr
+                                    Return: term
+                                  Return: numexpr
+                                Return: expression
+                              Return: printStat
+                              Consumed token: <";" at line 15 column 47>
+                            Return: statement
+                          Return: statlist
+                        Return: statlist
+                        Consumed token: <"}" at line 16 column 17>
+                      Return: statement
+                    Return: forStat
+                  Return: statement
+                  Call:   statlist
+                    Call:   statement
+                      Call:   vardecl(LOOKING AHEAD...)
+                        Visited token: <"while" at line 18 column 17>; Expected token: <<primitivetype>>
+                        Visited token: <"while" at line 18 column 17>; Expected token: <<IDENT>>
+                      Return: vardecl(LOOKAHEAD FAILED)
+                      Call:   whileStat
+                        Consumed token: <"while" at line 18 column 17>
+                        Consumed token: <"(" at line 18 column 23>
+                        Call:   expression
+                          Call:   numexpr
+                            Call:   term
+                              Call:   unaryexpr
+                                Call:   factor
+                                  Call:   lvalue
+                                    Consumed token: <<IDENT>: "idade" at line 18 column 24>
+                                  Return: lvalue
+                                Return: factor
+                              Return: unaryexpr
+                            Return: term
+                          Return: numexpr
+                          Consumed token: <"!=" at line 18 column 29>
+                          Call:   numexpr
+                            Call:   term
+                              Call:   unaryexpr
+                                Call:   factor
+                                  Consumed token: <<intLiteral>: "50" at line 18 column 31>
+                                Return: factor
+                              Return: unaryexpr
+                            Return: term
+                          Return: numexpr
+                        Return: expression
+                        Consumed token: <")" at line 18 column 33>
+                        Call:   statement
+                          Call:   vardecl(LOOKING AHEAD...)
+                            Visited token: <<IDENT>: "genero" at line 19 column 25>; Expected token: <<primitivetype>>
+                            Visited token: <<IDENT>: "genero" at line 19 column 25>; Expected token: <<IDENT>>
+                            Visited token: <"=" at line 19 column 32>; Expected token: <<IDENT>>
+                          Return: vardecl(LOOKAHEAD FAILED)
+                          Call:   atribStat
+                            Call:   lvalue
+                              Consumed token: <<IDENT>: "genero" at line 19 column 25>
+                            Return: lvalue
+                            Consumed token: <"=" at line 19 column 32>
+                            Call:   expression
+                              Call:   numexpr
+                                Call:   term
+                                  Call:   unaryexpr
+                                    Call:   factor
+                                      Consumed token: <<stringLiteral>: ""homem"" at line 19 column 34>
+                                    Return: factor
+                                  Return: unaryexpr
+                                Return: term
+                              Return: numexpr
+                            Return: expression
+                          Return: atribStat
+                          Consumed token: <";" at line 19 column 41>
+                        Return: statement
+                      Return: whileStat
+                    Return: statement
+                    Call:   statlist
+                      Call:   statement
+                        Call:   vardecl(LOOKING AHEAD...)
+                          Visited token: <"do" at line 21 column 17>; Expected token: <<primitivetype>>
+                          Visited token: <"do" at line 21 column 17>; Expected token: <<IDENT>>
+                        Return: vardecl(LOOKAHEAD FAILED)
+                        Call:   doWhileStat
+                          Consumed token: <"do" at line 21 column 17>
+                          Call:   statement
+                            Call:   vardecl(LOOKING AHEAD...)
+                              Visited token: <<IDENT>: "genero" at line 22 column 25>; Expected token: <<primitivetype>>
+                              Visited token: <<IDENT>: "genero" at line 22 column 25>; Expected token: <<IDENT>>
+                              Visited token: <"=" at line 22 column 32>; Expected token: <<IDENT>>
+                            Return: vardecl(LOOKAHEAD FAILED)
+                            Call:   atribStat
+                              Call:   lvalue
+                                Consumed token: <<IDENT>: "genero" at line 22 column 25>
+                              Return: lvalue
+                              Consumed token: <"=" at line 22 column 32>
+                              Call:   expression
+                                Call:   numexpr
+                                  Call:   term
+                                    Call:   unaryexpr
+                                      Call:   factor
+                                        Consumed token: <<stringLiteral>: ""mulher"" at line 22 column 34>
+                                      Return: factor
+                                    Return: unaryexpr
+                                  Return: term
+                                Return: numexpr
+                              Return: expression
+                            Return: atribStat
+                            Consumed token: <";" at line 22 column 42>
+                          Return: statement
+                          Consumed token: <"(" at line 23 column 25>
+                          Call:   expression
+                            Call:   numexpr
+                              Call:   term
+                                Call:   unaryexpr
+                                  Call:   factor
+                                    Call:   lvalue
+                                      Consumed token: <<IDENT>: "idade" at line 23 column 26>
+                                    Return: lvalue
+                                  Return: factor
+                                Return: unaryexpr
+                              Return: term
+                            Return: numexpr
+                            Consumed token: <"<" at line 23 column 31>
+                            Call:   numexpr
+                              Call:   term
+                                Call:   unaryexpr
+                                  Call:   factor
+                                    Consumed token: <<intLiteral>: "50" at line 23 column 32>
+                                  Return: factor
+                                Return: unaryexpr
+                              Return: term
+                            Return: numexpr
+                          Return: expression
+                          Consumed token: <")" at line 23 column 34>
+                        Return: doWhileStat
+                        Consumed token: <";" at line 23 column 35>
+                      Return: statement
+                    Return: statlist
+                  Return: statlist
+                Return: statlist
+                Consumed token: <"}" at line 24 column 9>
+              Return: statement
+            Return: methodbody
+          Return: methoddecl
+          Call:   methoddecl
+            Consumed token: <<primitivetype>: "string" at line 26 column 9>
+            Consumed token: <<IDENT>: "umMetodo" at line 26 column 16>
+            Call:   methodbody
+              Consumed token: <"(" at line 26 column 24>
+              Call:   paramlist
+                Consumed token: <<primitivetype>: "int" at line 26 column 25>
+                Consumed token: <<IDENT>: "novoAno" at line 26 column 29>
+              Return: paramlist
+              Consumed token: <")" at line 26 column 36>
+              Call:   statement
+                Call:   vardecl(LOOKING AHEAD...)
+                  Visited token: <"{" at line 26 column 37>; Expected token: <<primitivetype>>
+                  Visited token: <"{" at line 26 column 37>; Expected token: <<IDENT>>
+                Return: vardecl(LOOKAHEAD FAILED)
+                Consumed token: <"{" at line 26 column 37>
+                Call:   statlist
+                  Call:   statement
+                    Call:   vardecl(LOOKING AHEAD...)
+                      Visited token: <"return" at line 27 column 17>; Expected token: <<primitivetype>>
+                      Visited token: <"return" at line 27 column 17>; Expected token: <<IDENT>>
+                    Return: vardecl(LOOKAHEAD FAILED)
+                    Call:   returnStat
+                      Consumed token: <"return" at line 27 column 17>
+                      Call:   expression
+                        Call:   numexpr
+                          Call:   term
+                            Call:   unaryexpr
+                              Call:   factor
+                                Call:   lvalue
+                                  Consumed token: <<IDENT>: "novoAno" at line 27 column 24>
+                                Return: lvalue
+                              Return: factor
+                            Return: unaryexpr
+                          Return: term
+                        Return: numexpr
+                      Return: expression
+                    Return: returnStat
+                    Consumed token: <";" at line 27 column 31>
+                  Return: statement
+                Return: statlist
+                Consumed token: <"}" at line 28 column 9>
+              Return: statement
+            Return: methodbody
+          Return: methoddecl
+          Consumed token: <"}" at line 29 column 1>
+        Return: classbody
+      Return: classdecl
+    Return: classlist
+    Consumed token: <<EOF> at line 29 column 3>
+  Return: program
+0 erros lexicos encontrados
+0 erros sintaticos encontrados

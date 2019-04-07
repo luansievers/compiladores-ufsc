@@ -1,0 +1,20 @@
+Compilador X+++ - Versao 1.0 - 2017
+Lendo do arquivo inputComErrosCompleto.c . . .
+Call:   program
+  Call:   classlist
+    Call:   classdecl
+      Consumed token: <"class" at line 1 column 1>
+      Consumed token: <<IDENT>: "Pessoa" at line 1 column 7>
+      Consumed token: <"extends" at line 1 column 14>
+      Consumed token: <<IDENT>: "Compilador" at line 1 column 22>
+      Call:   classbody
+      Return: classbody
+    Return: classdecl
+  Return: classlist
+Return: program
+Encountered " <primitivetype> "string "" at line 3, column 1.
+Was expecting:
+    "{" ...
+
+0 erros lexicos encontrados
+1 erros sintaticos encontrados

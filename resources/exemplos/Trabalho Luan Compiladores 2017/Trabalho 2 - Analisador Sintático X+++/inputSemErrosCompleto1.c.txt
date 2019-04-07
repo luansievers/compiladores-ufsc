@@ -1,0 +1,4 @@
+Compilador X+++ - 1.0 - 2017.2
+Lendo do file inputSemErrosCompleto1.c . . .
+0 erros lexicos encontrados
+0 erros sintaticos encontrados

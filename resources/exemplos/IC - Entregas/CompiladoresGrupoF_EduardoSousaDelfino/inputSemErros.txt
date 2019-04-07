@@ -1,0 +1,30 @@
+/* exemplo de 
+comentario multilinha
+*/
+class Classe extends Compilador{
+
+	constructor(){
+	   	if (ano == 7BFh) int idade = 34 else idade = null;
+		string nome = "GrupoF"
+		char email = "email@ufsc.br"
+		float mergulho = 1.5e-1; //exemplo de comentario
+
+		switch
+			case nome != null
+		break
+		default null
+		end
+	
+		while (idade < 100){
+			do idade++;
+		}
+
+		for(i=0; i<idade; i--){
+			print "simmbolos" . : , _
+			print "operadores" > <= >= * / % 
+
+		}
+		return new Classe()
+	}
+
+}

@@ -1,0 +1,17 @@
+Compilador X+++ - Versao 1.0 - 2017
+Lendo do arquivo statement2.x . . .
+
+*** statement ***
+     Syncronizing Set: { } break ; class do for if print read return super switch while <primitivetype> 
+Ignoring token: <IDENT>
+Ignoring token: ,
+Ignoring token: <IDENT>
+Found syncronizing token: ;
+Encountered " <IDENT> "b "" at line 4, column 9.
+Was expecting one of:
+    "[" ...
+    ";" ...
+    "," ...
+    
+0 erros lexicos encontrados
+1 erros sintaticos encontrados
