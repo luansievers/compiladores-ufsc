@@ -1,7 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>ufsc.ine5622</groupId>
-  <artifactId>trabalho1_compiladores</artifactId>
+  <artifactId>trabalho_compiladores</artifactId>
   <version>1.0</version>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -87,7 +88,7 @@
         <version>3.1.1</version>
         <configuration>
           <descriptors>src/assembly/entrega.xml</descriptors>
-          <finalName>trabalho_compiladores_bruno_luan</finalName>
+          <finalName>compiladores_bruno_djessica_luan</finalName>
           <appendAssemblyId>false</appendAssemblyId>
         </configuration>
         <executions>

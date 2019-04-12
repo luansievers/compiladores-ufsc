@@ -7,7 +7,7 @@
   <fileSets>
     <fileSet>
       <directory>resources</directory>
-      <outputDirectory>/</outputDirectory>
+      <outputDirectory>./</outputDirectory>
       <includes>
         <include>relatorio.pdf</include>
       </includes>
@@ -38,6 +38,13 @@
       <outputDirectory>code</outputDirectory>
       <includes>
         <include>*.x</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>.</directory>
+      <outputDirectory>log</outputDirectory>
+      <includes>
+        <include>*.log</include>
       </includes>
     </fileSet>
   </fileSets>

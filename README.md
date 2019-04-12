@@ -40,42 +40,51 @@ A entrega deve ser realizada no MOODLE por um dos integrandes da equipe em um ar
 
 ## Compilando o projeto
 
-A especificação da linguagem que atenderá aos requisitos do enunciado será feita no arquivo [langX++.jj](src/main/javacc/parser/langX.jj). Para compilar o projeto, o comando abaixo deve ser executado:
+A especificação da linguagem que atenderá aos requisitos do enunciado será feita no arquivo [langX++.jj](src/main/javacc/parser/langX.jj). Além da especificação da linguagem, será necessário desenvolver dois exemplos de código da linguagem X+++: um [com erro](src/main/javacc/code/exemplo_erro_lexico.x) e outro [sem erro](src/main/javacc/code/exemplo_lexico.x). 
+
+Para gerar os arquivos *.java e *.class da especificação, executar o comando abaixo:
 
 ```bash
-# Gera arquivos .java a partir da especificação
-mvn generate-sources package -q
+mvn compile
 ```
 
-Para testar a definição da linguagem, utilizar os arquivos de exemplos:
+A validação da especificação deve ser feita utilizando os arquivos da linguagem X+++. Executar o teste com os códigos abaixo, para que além da execução também sejam salvos os arquivos de log, que também deverão ser entregues:
 
 ```bash
-# Arquivo léxicamente correto, última linha da saída será "Program successfully analyzed."
-mvn exec:java '-Dexec.args="resources/exemplos/ssamples/expression.x' -q
+# Arquivo léxicamente correto, última linha do log deverá ser "Program successfully analyzed."
+mvn exec:java '-Dexec.args="src/main/javacc/code/exemplo_lexico.x"' -q --log-file target/exemplo_lexico.log
 
-# Arquivo com erro léxico, última linha da saída será "3 Lexical Errors found"
-mvn exec:java '-Dexec.args=resources/exemplos/ssamples/bintree-erro-lexico.x' -q
+# Arquivo com erro léxico, última linha do log deverá ser diferente de "Program successfully analyzed."
+mvn exec:java '-Dexec.args="src/main/javacc/code/exemplo_erro_lexico.x"' -q --log-file target/exemplo_erro_lexico.log
 ```
 
 ## Preparando o arquivo de entrega
 
-Ao concluir o trabalho, executar o comando abaixo para preparar o arquivo de entrega:
+Para preparar o arquivo de entrega, executar os comandos Maven de compilação e teste, para que sejam gerados todos os arquivos. Além disso, converter o [arquivo de relatorio](resoucers/relatorio.md) de Markdown para PDF, salvando na pasta resources com o nome relatorio.pdf. Por último, executar o comando abaixo: 
 
 ```bash
 # Prepara o arquivo para ser enviado no Moodle
-mvn package -q
+mvn package
 ```
 
-Será gerado na pasta target o arquivo trabalho_compiladores_bruno_luan.zip com a seguinte estrutura:
+Será gerado na pasta target o arquivo compiladores_bruno_djessica_luan.zip com a seguinte estrutura:
 
 ```text
 ├── class
 ├── code
 ├── java
-└── jj
+├── jj
+└── log
+relatorio.pdf
 ```
 
-Em class estarão os arquivos class gerados pelo compilador Java, code estarão os códigos na linguagem X++ que serão criados para testar o compilador definido nessa atividade (esses código estão em src/main/javacc/code), java terá os arquivos Java gerados pelo JavaCC e jj estará a definição da linguagem.
+O conteúdo de cada pasta:
+
+- class: arquivos class da linguagem;
+- code: arquivos da linguagem X+++;
+- java: arquivos Java gerados a partir da especificação;
+- jj: especificação da linguagem X++;
+- log: arquivos de logs dos testes do gerador com os exemplos da linguagem X+++;
 
 ## Referências
 
