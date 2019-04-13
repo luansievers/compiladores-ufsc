@@ -1,5 +1,5 @@
 options {
-  STATIC = false;
+    STATIC = false;
 }
 
 PARSER_BEGIN(langX)
@@ -115,7 +115,17 @@ TOKEN : {
     < READ: "read" > |
     < RETURN: "return" > |
     < STRING: "string" > |
-    < SUPER: "super" >
+    < SUPER: "super" > |
+    // Qualificadores de identificadores
+    < FINAL: "final" > |
+    < PUBLIC: "public" > |
+    < PRIVATE: "private" > |
+    < PROTECTED: "protected" > |
+    // Novos tipos de variáveis e literais
+    < BYTE: "byte" > |
+    < SHORT: "short" > |
+    < LONG: "long" > |
+    < FLOAT: "float" >
 }
 
 /* constantes */
@@ -130,7 +140,13 @@ TOKEN : {
     // constante string como "abcd bcda"
     < string_constant: "\""( ~["\"","\n","\r"])* "\"" > |
     // constante null
-    < null_constant: "null" >
+    < null_constant: "null" > |
+    // float
+    < intLiteral: <DIGIT>(<DIGIT>)* > |
+    < floatLiteral:  <intLiteral> "." ( <intLiteral> |
+        <intLiteral> ( "e" | "E" )? ("-")? <intLiteral> )? |
+        (<intLiteral>)? "." ( <intLiteral> |
+        <intLiteral> ( "e" | "E" )? ("-")? <intLiteral> ) >
 }
 
 /* Identificadores */
@@ -166,7 +182,12 @@ TOKEN : {
     < MINUS: "-" > |
     < STAR: "*" > |
     < SLASH: "/" > |
-    < REM: "%" >
+    < REM: "%" > |
+    // Operadores lógicos
+    < AND: "&&" > |
+    < OR: "||" > |
+    < XOR: "^" > |
+    < NOT: "!" >
 }
 
 /* Trata os erros léxicos */
