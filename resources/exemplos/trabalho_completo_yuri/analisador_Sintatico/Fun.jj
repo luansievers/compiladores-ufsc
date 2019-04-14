@@ -1,0 +1,605 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ * @aluno1=Alexandre Pereira Back 18100844 
+ * @aluno2=Yuri Kayser da Rosa 12201035
+ */
+options
+{
+  static = false; //Nao criara metodos estaticos
+  DEBUG_LOOKAHEAD = true; // (default false)
+}
+
+PARSER_BEGIN(Fun)
+package parser;
+
+import java.io.*;
+
+public class Fun
+{
+  boolean Menosshort = false; // saida resumida -= false
+  
+  public static void main(String args []) throws ParseException
+  {
+   
+    String filename = "";
+    Fun divertido;
+    int i;
+    boolean ms = false;
+    boolean debug = false;
+
+    for (i = 0; i< args.length - 1; i++)
+    {
+		if (args[i].equals("-debug_AS")) {
+			debug = true;
+		}
+    }
+
+    if (args[i].equals("-"))
+    {
+      System.out.println("Reading from stantard input...");
+      divertido = new Fun(System.in);
+    }
+    else
+    { // le do arquivo
+      filename = args[args.length-1];
+      System.out.println("Lendo do arquivo...");
+      try {
+        divertido = new Fun(new java.io.FileInputStream(filename));
+      }
+      catch (java.io.FileNotFoundException e) {
+		System.out.println("File " + filename + " not found.");
+      	return;
+      }  
+    }
+	if(!debug) {
+		divertido.disable_tracing();
+	}
+    divertido.Menosshort = ms;
+    divertido.program(); // metodo que faz analise
+
+    // verifica se houve erro l�xico
+    if (divertido.token_source.foundLexError() != 0 )
+      System.out.println(divertido.token_source.foundLexError() +  "Erros l�xicos encontrads");
+    else
+      System.out.println("Programa analisado com sucesso");
+    //
+	
+    
+  }
+  static public String im(int x) // metodo auxiliar
+  {
+    int k;
+    String s;
+    s = tokenImage[x];
+    k = s.lastIndexOf("\"");
+    try {s = s.substring(1,k); }
+      catch(StringIndexOutOfBoundsException e) {}
+    return s;
+  }
+
+}
+
+PARSER_END(Fun)
+
+SKIP :
+{
+  " "
+| "\r"
+| "\t"
+| "\n"
+| "\f"
+}
+
+SKIP:
+{
+ "/*": multilinecomment
+}
+
+<multilinecomment > SKIP:
+{
+  "*/" : DEFAULT
+|  <~[]> 
+}
+
+SKIP:
+{
+ "//": singlelinecomment
+}
+
+<singlelinecomment > SKIP:
+{
+  <["\n","\r"] > : DEFAULT
+|  <~[]> 
+}
+
+SPECIAL_TOKEN: /* tratar os erros l�xicos */
+{
+<INVALID_LEXICAL:
+( ~ ["a"-"z", "A"-"Z",
+  "0"-"9",
+  "\"",
+  "\'",
+  "(",
+  ")",
+  "[",
+  "]",
+  "{",
+  "}",
+  ";",
+  ",",
+  ".",
+  "=",
+  ">",
+  "<",
+  "!",
+  "+",
+  "-",
+  "*",
+  "/",
+  "%",
+  " ",
+  "\t",
+  "\n",
+  "\r",
+  "\f" 
+])+>
+  {
+    System.err.println("Linha " + input_stream.getEndLine() + " - String invalida encontrada: " + image);
+    countLexError++;
+    System.err.println("Quantidade de erros encontrados ate o momento: " + countLexError);
+  }
+|
+<INVALIND_CONST:
+ "\"" (~ ["\n", "\r", "\""])* ["\n","\r"] >
+  {
+    System.err.println("Linha " + input_stream.getEndLine() +  " - String contem um  \\n: " + image);
+    countLexError++;
+    System.err.println("Quantidade de erros encontrados ate o momento: " + countLexError);
+  }
+|
+<INVALID_CHAR:
+  "\'" (~ ["\n", "\r","\'"])* ["\n","\r"]>
+  {
+    System.err.println("Line " + input_stream.getEndLine() +  " - Char constant has a \\r: " + image);
+    countLexError++;
+    System.err.println("Quantidade de erros encontrados ate o momento: " + countLexError);
+  }
+|
+<EMPTY_CHAR:
+  "\'" "\'">
+  {
+    System.err.println("Line " + input_stream.getEndLine() +  " - Char vazio: " + image);
+    countLexError++;
+    System.err.println("Quantidade de erros encontrados ate o momento: " + countLexError);
+  }
+}
+
+TOKEN_MGR_DECLS :
+{
+int countLexError = 0;
+
+public int  foundLexError()
+{
+  return countLexError;
+}
+
+}
+
+TOKEN : /* Palavras reservadas */
+{
+  < BREAK : "break" >
+| < CLASS : "class" >
+| < CONSTRUCTOR : "constructor" >
+| < ELSE : "else" >
+| < EXTENDS : "extends" >
+| < FOR : "for" >
+| < IF : "if" >
+| < INT : "int" >
+| < FLOAT : "float" >
+| < NEW : "new" >
+| < PRINT : "print" >
+| < READ : "read" >
+| < RETURN : "return" >
+| < STRING : "string" >
+| < CHAR : "char" >
+| < SUPER : "super" >
+| < BOOLEAN : "boolean" >
+}
+
+TOKEN : /* OPERATORS */
+{ < ASSIGN : "=" >
+| < GT : ">" >
+| < LT : "<" >
+| < EQ : "==" >
+| < LE : "<=" >
+| < GE : ">=" >
+| < NEQ : "!=" >
+| < PLUS : "+" >
+| < MINUS : "-" >
+| < STAR : "*" >
+| < SLASH : "/" >
+| < REM : "%" >
+| < NOT : "not" >
+| < AND : "and" >
+| < OR : "or" >
+| < XOR : "xor" >
+}
+
+TOKEN : /* Simbolos Especiais */
+{ < LPAREN : "(" >
+| < RPAREN : ")" >
+| < LBRACE : "{" >
+| < RBRACE : "}" >
+| < LBRACKET : "[" >
+| < RBRACKET : "]" >
+| < SEMICOLON : ";" >
+| < COMMA : "," >
+| < DOT : "." >
+}
+
+TOKEN : /* constantes */
+{
+ < int_constant:( // nrs decimais inteiros, octais, hexa ou binarios
+	(["0"-"9"] (["0"-"9"])* )
+  )>
+|
+< float_constant:(
+  	((["0"-"9"])+ ["."] (["0"-"9"])+ ) 
+)>
+|
+<  char_constant: // constante char
+   "\'" (~["\'","\r","\n"]) "\'"
+ | "\'" (("\\""n")) "\'"
+ | "\'" (("\\""r")) "\'" >
+|    
+ <  string_constant: // constante string
+   "\""( ~["\"","\n","\r"])* "\"" >
+|
+ < null_constant: "null" > // constante null
+|
+ < boolean_constant:( "true" | "false" )> // constantes boleanas
+
+}
+
+TOKEN : /* Identificadores */
+{
+ <  IDENT: <LETTER> (<LETTER>|<DIGIT>)* >
+|
+ < #LETTER: ["A"-"Z","a"-"z"] >
+|
+ < #DIGIT: ["0"-"9"] >
+}
+
+void program() :
+{
+
+}
+
+{
+  [classlist()]<EOF>
+}
+
+void classlist():
+{
+  
+}
+{
+  classdec1() [ classlist()]
+}
+
+void classdec1():
+{
+  
+}
+{
+  < CLASS > <IDENT > [<EXTENDS > <IDENT >] classbody()
+}
+
+void classbody():
+{
+  
+}
+{
+  < LBRACE > 	[classbodylist()]
+  <RBRACE >
+}
+
+void classbodylist():
+{
+}
+{
+	classbodystatement()[classbodylist()]
+}
+
+void classbodystatement():
+{
+}
+{
+	classlist()
+	|
+	LOOKAHEAD(3)vardecl() < SEMICOLON >
+	|
+	LOOKAHEAD(3) atribstat() < SEMICOLON >
+	|
+	constructdec()
+	|
+	methoddecl()  
+}
+
+void vardecl():
+{
+}
+{
+  (<INT>|<STRING>|<IDENT>|<FLOAT>|<CHAR>|<BOOLEAN>)
+  < IDENT >(< LBRACKET > < RBRACKET >)*
+  (< COMMA ><IDENT >(< LBRACKET > < RBRACKET >)*)*
+}
+
+void constructdec():
+{
+}
+{
+  < CONSTRUCTOR > methodbody()
+}
+
+void methoddecl():
+{
+
+}
+{
+  (<INT>|<STRING>|<IDENT>|<FLOAT>|<CHAR>|<BOOLEAN>) (< LBRACKET > < RBRACKET >)*
+  < IDENT > methodbody()
+}
+
+void methodbody():
+{
+}
+{
+< LPAREN > paramlist() < RPAREN > statement()
+}
+
+void paramlist():
+{
+  
+}
+{
+  [	
+  	(< INT>|<STRING>|<IDENT>|<FLOAT>|<CHAR>|<BOOLEAN>) < IDENT > (< RBRACKET > < LBRACKET >)* (<ASSIGN> (alocexpression() | expression()))?
+  	(< COMMA > (<INT>|<STRING>|<IDENT>|<FLOAT>|<CHAR>|<BOOLEAN>) < IDENT > (< RBRACKET > <LBRACKET >)* (<ASSIGN> (alocexpression() | expression()))?)*  	  
+  ]
+}
+
+void statement():
+{
+}
+{
+	LOOKAHEAD(3)
+  	vardecl()  < SEMICOLON >
+|
+ 	atribstat() < SEMICOLON >
+|
+	printstat() < SEMICOLON >
+|
+	readstat() < SEMICOLON >
+|
+	returnstat() < SEMICOLON >
+|
+	superstat() < SEMICOLON >
+|
+	ifstat()
+|
+	forstat()
+|
+	< LBRACE > statlist() < RBRACE >
+|
+	< BREAK > < SEMICOLON >
+|
+	< SEMICOLON > 
+}
+
+void atribstat():
+{
+}
+{
+  	LOOKAHEAD(2) lvalue() <ASSIGN> (alocexpression() | expression())
+  	|
+  	(<INT>|<STRING>|<IDENT>|<FLOAT>|<CHAR>|<BOOLEAN>)
+ 	 < IDENT >(< LBRACKET > < RBRACKET >)*
+  	 <ASSIGN> (alocexpression() | expression())
+}
+
+void printstat():
+{
+}
+{
+  	< PRINT > expression()
+}
+
+void readstat():
+{
+}
+{
+	< READ > lvalue()
+}
+
+void returnstat():
+{
+}
+{
+  	< RETURN > [expression()]
+}
+void superstat():
+{
+}
+{
+  	< SUPER ><LPAREN >arglist()< RPAREN >
+}
+
+void ifstat():
+{
+}
+{
+  	< IF > < LPAREN > expression() < RPAREN > statement()
+  	[LOOKAHEAD(1) < ELSE > statement()]
+}
+
+void forstat():
+{
+}
+{
+	< FOR >
+	<LPAREN >
+	[atribstat()] < SEMICOLON >
+	[expression()] < SEMICOLON >
+	[atribstat()]
+	< RPAREN >
+	statement()
+}
+
+void statlist():
+{
+}
+{
+  	statement()[statlist()]
+}
+
+void lvalue():
+{
+}
+{
+  	< IDENT >
+  	(
+  	  < LBRACKET > expression() < RBRACKET >
+  	| < DOT > <IDENT > [<LPAREN > arglist() < RPAREN >]
+ 	)*}
+
+void alocexpression():
+{
+}
+{
+	< NEW >
+	(
+	  LOOKAHEAD(2) < IDENT > < LPAREN > arglist() < RPAREN >
+	| (< INT>|<STRING>|<IDENT>|<FLOAT>|<CHAR>|<BOOLEAN>) (< LBRACKET > expression() < RBRACKET >)+	
+	)	  
+}
+
+void expression():
+{
+}
+{
+  	logicexpression()(<AND > logicexpression())*
+}
+
+void avlexpression():
+{
+}
+{
+ 	numexpr() [(< LT > | < GT > | < LE > | < GE > | < EQ > | < NEQ > ) numexpr()]
+}
+
+void logicexpression() :
+{
+}
+{
+  [<NOT>] avlexpression()  (( <XOR> | <OR>) [<NOT>] avlexpression())*
+}
+
+
+void numexpr():
+{
+}
+{
+	term() ((< PLUS > | < MINUS >) term())*
+}
+
+void term():
+{
+}
+{
+	unaryexpr() ((< STAR >|< SLASH >|< REM >) unaryexpr())*
+}
+
+void unaryexpr():
+{
+}
+{
+	[(< PLUS >|< MINUS >)] factor()
+}
+
+void factor():
+{
+}
+{
+	(	  < int_constant >|
+	  < string_constant >|
+	  < null_constant >|
+	  <char_constant>|
+	  <float_constant>|
+	  <boolean_constant>|
+	  lvalue() |
+	  < LPAREN > expression() < RPAREN >
+	)
+}
+
+void arglist():
+{
+}
+{
+  [expression() (< COMMA > expression())*]
+}
+
+void program2(): { }
+{
+  (
+    <int_constant> { System.out.println("Reconheceu int_constant"); } 
+  | <float_constant> { System.out.println("Reconheceu float_constant"); } 
+  | <char_constant> { System.out.println("Reconheceu char_constant"); } 
+  | <string_constant> { System.out.println("Reconheceu string_constant"); } 
+  | <null_constant> { System.out.println("Reconheceu null_constant"); } 
+  | <boolean_constant> { System.out.println("Reconheceu boolean_constant"); }  
+  | <IDENT> { System.out.println("Reconheceu IDENT"); }  
+  | <BREAK> { System.out.println("Reconheceu BREAK"); }
+  | <CLASS> { System.out.println("Reconheceu CLASS"); }
+  | <CONSTRUCTOR> { System.out.println("Reconheceu CONSTRUCTOR"); }
+  | <ELSE> { System.out.println("Reconheceu ELSE"); }
+  | <EXTENDS> { System.out.println("Reconheceu EXTENDS"); }
+  | <FOR> { System.out.println("Reconheceu FOR"); }
+  | <IF> { System.out.println("Reconheceu IF"); }
+  | <INT> { System.out.println("Reconheceu INT"); }
+  | <FLOAT> { System.out.println("Reconheceu FLOAT"); }
+  | <NEW> { System.out.println("Reconheceu NEW"); }
+  | <PRINT> { System.out.println("Reconheceu PRINT"); }
+  | <READ> { System.out.println("Reconheceu READ"); }
+  | <RETURN> { System.out.println("Reconheceu RETURN"); }
+  | <STRING> { System.out.println("Reconheceu STRING"); }
+  | <CHAR> { System.out.println("Reconheceu CHAR"); }
+  | <SUPER> { System.out.println("Reconheceu SUPER"); }
+  | <BOOLEAN> { System.out.println("Reconheceu BOOLEAN"); }
+  | <ASSIGN> { System.out.println("Reconheceu ASSIGN"); }
+  | <GT> { System.out.println("Reconheceu GT"); }
+  | <LT> { System.out.println("Reconheceu LT"); }
+  | <EQ> { System.out.println("Reconheceu EQ"); }
+  | <LE> { System.out.println("Reconheceu LE"); }
+  | <GE> { System.out.println("Reconheceu GE"); }
+  | <NEQ> { System.out.println("Reconheceu NEQ"); } 
+  | <PLUS> { System.out.println("Reconheceu PLUS"); }
+  | <MINUS> { System.out.println("Reconheceu MINUS"); }
+  | <STAR> { System.out.println("Reconheceu STAR"); }
+  | <SLASH> { System.out.println("Reconheceu SLASH"); }
+  | <REM> { System.out.println("Reconheceu REM"); }
+  | <NOT> { System.out.println("Reconheceu NOT"); }
+  | <AND> { System.out.println("Reconheceu AND"); }
+  | <OR> { System.out.println("Reconheceu OR"); }
+  | <XOR> { System.out.println("Reconheceu XOR"); }
+  | <LPAREN> { System.out.println("Reconheceu LPAREN"); }
+  | <RPAREN> { System.out.println("Reconheceu RPAREN"); }
+  | <LBRACE> { System.out.println("Reconheceu LBRACE"); }
+  | <RBRACE> { System.out.println("Reconheceu RBRACE"); }
+  | <LBRACKET> { System.out.println("Reconheceu LBRACKET"); }
+  | <RBRACKET> { System.out.println("Reconheceu RBRACKET"); }
+  | <SEMICOLON> { System.out.println("Reconheceu SEMICOLON"); }
+  | <COMMA     > { System.out.println("Reconheceu COMMA"); }
+  | <DOT> { System.out.println("Reconheceu DOT"); }  
+  )*
+}

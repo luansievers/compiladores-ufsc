@@ -1,0 +1,66 @@
+0
+10
+129
+410
+0.12
+1.1
+98.87
+98.873
+'a'
+'_'
+'B'
+'\n'
+'\r'
+'4'
+'\n'
+'\r'
+"string 1"
+"1 CEBRUtius "
+"blu3t00th"
+/* asdf
+ comment
+ */
+//comm
+Identifer2
+break
+class
+constructor
+else
+extends
+for
+if
+int
+float
+new
+print
+read
+return
+string
+char
+super
+boolean
+=
+>
+<
+==
+<=
+>=
+!=
++
+-
+*
+/
+%
+not
+and
+or
+xor
+(
+)
+{
+}
+[
+]
+;
+,
+.
