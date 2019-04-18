@@ -16,10 +16,7 @@ Observações gerais:
 
 Para cumprir o trabalho, a equipe deve implementar o analisador léxico capaz de reconhecer os tokens da linguagem X++ especificado no Capítulo 3 do [livro](resources/livro.pdf) Delamaro (2004) utilizando JavaCC, adicionando as seguintes extensões (conforme usado na linguagem JAVA):
 
-- Possibilidade de inicializar uma variável fora de qualquer método;
 - Operadores lógicos AND, OR, XOR e NOT;
-- Expressões lógicas com estes operadores;
-- Uso de expressoes lógicas nos contextos adequados;
 - Novos tipos de variáveis e literais: BYTE, SHORT, LONG e FLOAT, além dos já existentes;
 - Qualificadores de identificadores: FINAL, PUBLIC, PRIVATE e PROTECTED, como usado em Java.
 
