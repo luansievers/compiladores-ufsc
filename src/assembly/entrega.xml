@@ -41,7 +41,7 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>.</directory>
+      <directory>target</directory>
       <outputDirectory>log</outputDirectory>
       <includes>
         <include>*.log</include>
