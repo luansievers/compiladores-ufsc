@@ -20,7 +20,7 @@ Para cumprir o trabalho, a equipe deve implementar o analisador léxico capaz de
 - Novos tipos de variáveis e literais: BYTE, SHORT, LONG e FLOAT, além dos já existentes;
 - Qualificadores de identificadores: FINAL, PUBLIC, PRIVATE e PROTECTED, como usado em Java.
 
-Apresentar um [relatório](resources/relatorio_1.md) contendo os seguintes itens devidamente comentados:
+Apresentar um [relatório](resources/relatorio.md) contendo os seguintes itens devidamente comentados:
 
 - Nome e código de matrícula de todos os integrantes das equipes;
 - Ao lado de cada nome, determinar qual o papel de cada integrante no trabalho;
@@ -37,7 +37,7 @@ A entrega deve ser realizada no MOODLE por um dos integrandes da equipe em um ar
 
 ## Compilando o projeto
 
-A especificação da linguagem que atenderá aos requisitos do enunciado será feita no arquivo [langX++.jj](src/main/javacc/parser/langX.jj). Além da especificação da linguagem, será necessário desenvolver dois exemplos de código da linguagem X+++: um [com erro](src/main/javacc/code/exemplo_erro_lexico.x) e outro [sem erro](src/main/javacc/code/exemplo_lexico.x). 
+A especificação da linguagem que atenderá aos requisitos do enunciado será feita no arquivo [langX++.jj](src/main/javacc/parser/langX.jj). Além da especificação da linguagem, será necessário desenvolver dois exemplos de código da linguagem X+++: um [com erro](src/main/javacc/code/exemplo_erro_lexico.x) e outro [sem erro](src/main/javacc/code/exemplo_lexico.x).
 
 Para gerar os arquivos *.java e *.class da especificação, executar o comando abaixo:
 
@@ -57,7 +57,7 @@ mvn exec:java '-Dexec.args="src/main/javacc/code/exemplo_erro_lexico.x"' -q --lo
 
 ## Preparando o arquivo de entrega
 
-Para preparar o arquivo de entrega, executar os comandos Maven de compilação e teste, para que sejam gerados todos os arquivos. Além disso, converter o [arquivo de relatorio](resoucers/relatorio.md) de Markdown para PDF, salvando na pasta resources com o nome relatorio.pdf. Por último, executar o comando abaixo: 
+Para preparar o arquivo de entrega, executar os comandos Maven de compilação e teste, para que sejam gerados todos os arquivos. Além disso, converter o [arquivo de relatorio](resoucers/relatorio.md) de Markdown para PDF, salvando na pasta resources com o nome relatorio.pdf. Por último, executar o comando abaixo:
 
 ```bash
 # Prepara o arquivo para ser enviado no Moodle
