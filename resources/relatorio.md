@@ -7,16 +7,16 @@ Alunos: Bruno Ribeiro da Silva (12200992), Djéssica Schell Crocetta (12203762),
 ## Atribuições
 
 Os alunos Bruno e Luan foram responsáveis pela implementação das extensões da liguagem X+++ para atenderem os requisitos da atividade. A aluna Djéssica foi responsável por parte do relatório. Abaixo uma lista de contribuições ao repositório do trabalho:
-
+* 980e36bf - Completed work log. Minor fix in README
 * fc3c86d - (HEAD -> master, origin/master, origin/HEAD) Update relatorio .md - incompleto (25 hours ago) Djéssica S.C
-* 4dec0e2 - formatado (7 days ago) Luan Felipe Sievers
-* 76bc112 - Alteração da pasta do log para o package (7 days ago) Luan Felipe Sievers
+* 4dec0e2 - Added tests and fixed code to deliver (7 days ago) Luan Felipe Sievers
+* 76bc112 - Updated log package(7 days ago) Luan Felipe Sievers
 * ceeb3d6 - Updated task description (8 days ago) Bruno Ribeiro da Silva
-* 4c359e7 - adicionado comentários e constantes byte, short, long e float *falta testes (11 days ago) Luan Felipe Sievers
+* 4c359e7 - Added coments and constants bytes, short, long and float (11 days ago) Luan Felipe Sievers
 * 882e73d - Added some constants. Implemented float (12 days ago) Bruno Ribeiro da Silva
 * 82a8f10 - Formatted parser code. Moved examples to proper folders (12 days ago) Bruno Ribeiro da Silva
 * 6085ef0 - Updated README file. Added X+++ code. Minor fixes. (13 days ago) Bruno Ribeiro da Silva
-* 12d1711 - Adicionado mais exemplos (3 weeks ago) Luan Felipe Sievers
+* 12d1711 - Added Examples (3 weeks ago) Luan Felipe Sievers
 * 5c4dc3d - POM enhanced to automatize some tasks. Instructions added to read me file (3 weeks ago) Bruno Ribeiro da Silva
 * 7bca20d - add delamaro book and example code (3 weeks ago) Bruno Ribeiro da Silva
 * 5cea126 - Initial commit (3 weeks ago) Bruno Ribeiro da Silva
