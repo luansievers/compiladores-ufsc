@@ -1,11 +1,9 @@
 package recovery;
 
-import parser.*;
 import java.util.*;
-
+import langX;
 
 public class RecoverySet extends HashSet {
-    private static final long serialVersionUID = 1L;
 
     // cria conjunto vazio
     public RecoverySet() {
@@ -22,28 +20,30 @@ public class RecoverySet extends HashSet {
         return super.contains(new Integer(t));
     }
 
-    // faz a união de dois conjuntos
+    // faz a união de dois conjutos
     public RecoverySet union(RecoverySet s) {
         RecoverySet t = null;
 
-        if (s != null) { // se s == null retorna null
+        // se s == null retorna null
+        if (s != null) {
             t = (RecoverySet) this.clone();
             t.addAll(s);
         }
-        return t;
+
         // retorna um terceiro conjunto, sem destruir nenhum
+        return t;
     }
 
-    public RecoverySet remove(int n) { // retira 1 elemento do conjunto
-
+    // retira 1 elemento do conjunto
+    public RecoverySet remove(int n) {
         RecoverySet t = (RecoverySet) this.clone();
         t.remove(new Integer(n));
 
-        return t; // retorna um novo conjunto, sem 1 dos elementos
+        // retorna um novo conjunto, sem 1 dos elementos
+        return t;
     }
 
-    // cria string descrevendo os tokens que pertencem
-    // ao conjunto
+    // cria string descrevendo os tokens que pertencem ao conjunto
     public String toString() {
         Iterator it = this.iterator();
         String s = "";

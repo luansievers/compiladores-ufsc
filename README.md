@@ -35,6 +35,8 @@ Entregar em anexo ao relatório:
 
 A entrega deve ser realizada no MOODLE por um dos integrandes da equipe em um arquivo compactado (.ZIP).
 
+---
+
 ## Enuciado da segunda atividade
 
 - Ler os capítulos 4 e 5 do [livro Delamaro (2004)](resoucers/livro.pdf);
@@ -46,7 +48,9 @@ A entrega deve ser realizada no MOODLE por um dos integrandes da equipe em um ar
   - Novos tipos de variáveis e literais:  BYTE, SHORT, LONG e FLOAT, além dos já existentes;
   - Qualificadores de identificadores: FINAL, PUBLIC, PRIVATE e PROTECTED, como usado em Java.
 
-## Compilando o projeto
+---
+
+# Compilando o projeto
 
 A especificação da linguagem que atenderá aos requisitos do enunciado será feita no arquivo [langX++.jj](src/main/javacc/parser/langX.jj). Além da especificação da linguagem, será necessário desenvolver dois exemplos de código da linguagem X+++: um [com erro](src/main/javacc/code/exemplo_erro_lexico.x) e outro [sem erro](src/main/javacc/code/exemplo_lexico.x).
 
