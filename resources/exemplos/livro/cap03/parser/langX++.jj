@@ -1,10 +1,10 @@
 /*************************************************************************
 Arquivo a ser processado pelo programa JavaCC.
-Contém:
-       - descrição do analisador léxico para a linguagem X++ 
+ContÃ©m:
+       - descriÃ§Ã£o do analisador lÃ©xico para a linguagem X++
 
 Autor: Marcio Delamaro
-Este programa é parte do livro "Construção de compiladores usando ferra..."
+Este programa Ã© parte do livro "ConstruÃ§Ã£o de compiladores usando ferra..."
 ************************************************************************/
 options {
   STATIC = false;
@@ -18,19 +18,19 @@ import java.io.*;
 
 public class langX {
 final static String Version = "X++ Compiler - Version 1.0 - 2004";
-boolean Menosshort = false; // saída resumida = falso
+boolean Menosshort = false; // saÃ­da resumida = falso
 
 
-// Define o método "main" da classe langX.  
-  public  static void main(String args[]) throws ParseException 
+// Define o mÃ©todo "main" da classe langX.
+  public  static void main(String args[]) throws ParseException
   {
     String filename = ""; // nome do arquivo a ser analisado
-    langX parser;     // analisador léxico/sintático
+    langX parser;     // analisador lÃ©xico/sintÃ¡tico
     int i;
     boolean ms = false;
 
     System.out.println(Version);
-    // lê os parâmetros passados para o compilador
+    // lÃª os parÃ¢metros passados para o compilador
     for (i = 0; i < args.length - 1; i++)
     {
     if ( args[i].toLowerCase().equals("-short") )
@@ -43,25 +43,25 @@ boolean Menosshort = false; // saída resumida = falso
     }
 
     if (args[i].equals("-"))
-    {       // lê da entrada padrão      
+    {       // lÃª da entrada padrÃ£o
         System.out.println("Reading from standard input . . .");
         parser = new langX(System.in);
      }
-     else 
-    {       // lê do arquivo
-        filename = args[args.length-1];  
+     else
+    {       // lÃª do arquivo
+        filename = args[args.length-1];
         System.out.println("Reading from file " + filename + " . . .");
         try {
             parser = new langX(new java.io.FileInputStream(filename));
-        } 
+        }
     catch (java.io.FileNotFoundException e) {
                System.out.println("File " + filename + " not found.");
         return;
         }
-    } 
+    }
     parser.Menosshort = ms;
-    parser.program();   // chama o método que faz a análise
-    if ( parser.token_source.foundLexError() != 0 ) // verifica se houve erro léxico
+    parser.program();   // chama o mÃ©todo que faz a anÃ¡lise
+    if ( parser.token_source.foundLexError() != 0 ) // verifica se houve erro lÃ©xico
         System.out.println(parser.token_source.foundLexError() + " Lexical Errors found");
     else
         System.out.println("Program successfully analyzed.");
@@ -95,7 +95,7 @@ public int foundLexError()
 }
 
 
-/* Espaços a serem desprezados no início de cada token */
+/* EspaÃ§os a serem desprezados no inÃ­cio de cada token */
 
 SKIP :
 {
@@ -133,7 +133,7 @@ SKIP :
 
 TOKEN :
 {
-  < BREAK: "break" > 
+  < BREAK: "break" >
 | < CLASS: "class" >
 | < CONSTRUCTOR: "constructor" >
 | < ELSE: "else" >
@@ -153,8 +153,8 @@ TOKEN :
 
 TOKEN :
 {
-  < int_constant:(  // números decimais, octais, hexadecimais ou binários
-                  (["0"-"9"] (["0"-"9"])* ) | 
+  < int_constant:(  // nÃºmeros decimais, octais, hexadecimais ou binÃ¡rios
+                  (["0"-"9"] (["0"-"9"])* ) |
                   (["0"-"7"] (["0"-"7"])* ["o", "O"] ) |
                   (["0"-"9"] (["0"-"7","A"-"F","a"-"f"])* ["h", "H"] ) |
                   (["0"-"1"] (["0"-"1"])* ["b", "B"])
@@ -177,7 +177,7 @@ TOKEN :
   < #DIGIT:["0"-"9"] >
 }
 
-/* Símbolos especiais */
+/* SÃ­mbolos especiais */
 
 TOKEN :
 {
@@ -210,10 +210,10 @@ TOKEN :
 | < REM: "%" >
 }
 
-/* Trata os erros léxicos */
+/* Trata os erros lÃ©xicos */
 SPECIAL_TOKEN :
 {
-<INVALID_LEXICAL: 
+<INVALID_LEXICAL:
 (~ ["a"-"z", "A"-"Z",
   "0"-"9",
   "\"",
@@ -242,15 +242,15 @@ SPECIAL_TOKEN :
   "\f"
 ])+>
    {
-    System.err.println("Line " + input_stream.getEndLine() + 
+    System.err.println("Line " + input_stream.getEndLine() +
                            " - Invalid string found: " + image);
     countLexError++;
    }
 |
-   <INVALID_CONST: 
+   <INVALID_CONST:
    "\"" (~ ["\n","\r","\""])* ["\n","\r"]>
    {
-    System.err.println("Line " + input_stream.getEndLine() + 
+    System.err.println("Line " + input_stream.getEndLine() +
                            " - String constant has a \\n: " + image);
     countLexError++;
    }
@@ -270,15 +270,15 @@ Token t;
         st = st.specialToken;
         do {
            if ( Menosshort )
-          System.out.println(st.image + "  " + 
+          System.out.println(st.image + "  " +
                                  im(st.kind) + " " +
                                  st.kind);
            else
-              System.out.println("Line: " + st.beginLine + 
-                                 " Column: " + st.beginColumn + 
+              System.out.println("Line: " + st.beginLine +
+                                 " Column: " + st.beginColumn +
                                  " " + st.image +
                                  "  " + im(st.kind) + "  "+t.kind);
-          st = st.next;       
+          st = st.next;
         } while (st != t.next);
-    } while (t.kind != langXConstants.EOF);  
+    } while (t.kind != langXConstants.EOF);
 }
