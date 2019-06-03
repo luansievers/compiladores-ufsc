@@ -50,7 +50,7 @@ A entrega deve ser realizada no MOODLE por um dos integrandes da equipe em um ar
 
 ---
 
-# Compilando o projeto
+## Compilando o projeto
 
 A especificação da linguagem que atenderá aos requisitos do enunciado será feita no arquivo [langX++.jj](src/main/javacc/parser/langX.jj). Além da especificação da linguagem, será necessário desenvolver dois exemplos de código da linguagem X+++: um [com erro](src/main/javacc/code/exemplo_erro_lexico.x) e outro [sem erro](src/main/javacc/code/exemplo_lexico.x).
 

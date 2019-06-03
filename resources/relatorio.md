@@ -7,6 +7,7 @@ Alunos: Bruno Ribeiro da Silva (12200992), Djéssica Schell Crocetta (12203762),
 ## Atribuições
 
 Os alunos Bruno e Luan foram responsáveis pela implementação das extensões da liguagem X+++ para atenderem os requisitos da atividade. A aluna Djéssica foi responsável por parte do relatório. Abaixo uma lista de contribuições ao repositório do trabalho:
+
 * 980e36bf - Completed work log. Minor fix in README
 * fc3c86d - (HEAD -> master, origin/master, origin/HEAD) Update relatorio .md - incompleto (25 hours ago) Djéssica S.C
 * 4dec0e2 - Added tests and fixed code to deliver (7 days ago) Luan Felipe Sievers
