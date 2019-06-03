@@ -27,9 +27,6 @@ public class langX {
         langX parser;
         int i;
         boolean ms = false;
-        int i;
-        langX parser; // analisador léxico/sintático
-        String filename = ""; // nome do arquivo a ser analisado
 
         System.out.println(Version);
         // lê os parâmetros passados para o compilador
@@ -60,7 +57,7 @@ public class langX {
 
         parser.debug_recovery = debug_recovery;
 
-        if (!debug) {
+        if (!debug_as) {
             //desabilita verbose do AS
             parser.disable_tracing();
         }
@@ -404,7 +401,7 @@ void program() throws ParseEOFException:
 
 void classlist(RecoverySet g) throws ParseEOFException:
 {
-    RecoverySet g = First.classlist.union(g);
+    RecoverySet f = First.classlist.union(g);
 }{
     classdecl(f) [ LOOKAHEAD(2) classlist(g) ]
 }
