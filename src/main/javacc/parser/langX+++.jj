@@ -269,7 +269,7 @@ TOKEN :
 
 /* Identificadores */
 TOKEN : {
-    < IDENT: <LETTER> (<LETTER>|<DIGIT>)* >
+    < IDENT: <LETTER> (<LETTER>|<DIGIT>|<UNDERLINE>)* >
     |
     < #LETTER:["A"-"Z","a"-"z"] >
     |
@@ -295,6 +295,8 @@ TOKEN : {
     < COMMA: "," >
     |
     < DOT: "." >
+    |
+    < UNDERLINE: "_" >
 }
 
 /* Operadores */
