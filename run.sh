@@ -20,7 +20,7 @@
 
 # CORRETOS
 # mvn exec:java '-Dexec.args="src/main/javacc/code/lexico/exemplo.x"' -q --log-file target/exemplo_lexico.log
-# mvn exec:java '-Dexec.args="src/main/javacc/code/sintatico/exemplo.x"' -q --log-file target/exemplo_sintatico.log
+mvn exec:java '-Dexec.args="src/main/javacc/code/sintatico/exemplo.x"' -q --log-file target/exemplo_sintatico.log
 
 # mvn exec:java '-Dexec.args="src/main/javacc/code/samples/bintree-with-main.x"' -q --log-file target/bintree-with-main.log
 # mvn exec:java '-Dexec.args="src/main/javacc/code/samples/bintree.x"' -q --log-file target/bintree.log

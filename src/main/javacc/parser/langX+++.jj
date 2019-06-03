@@ -94,53 +94,43 @@ public class langX {
     void consumeUntil(RecoverySet g, ParseException e, String met) throws ParseEOFException, ParseException {
         Token tok;
 
+        // informação sobre a recuperação
         if (debug_recovery) {
-            // informação sobre recuperação
             System.out.println();
             System.out.println("*** " + met + " ***");
-            System.out.println("     Sincronizando Set: " + g);
+            System.out.println("     Syncronizing Set: " + g);
         }
 
-        if (g == null) {
-            // se o conjunto é null, propaga a exceção
-            throw e;
-        }
+        // se o conjunto é null, propaga a exceção
+        if (g == null) throw e;
 
         // pega token corrente
         tok = getToken(1);
 
         // se não chegou ao fim do arquivo
-        while (!eof) {
+        while ( ! eof ) {
             //achou um token no conjunto
             if (g.contains(tok.kind)) {
-                if (debug_recovery){
-                    System.out.println("     Encontrado token sincronizando: " + im(tok.kind));
-                }
+                if (debug_recovery)
+                    System.out.println("     Found syncronizing token: " + im(tok.kind));
                 break;
             }
-            if (debug_recovery) {
-                System.out.println("     Ignorando token: " + im(tok.kind));
-            }
+            if (debug_recovery)
+                System.out.println("     Ignoring token: " + im(tok.kind));
             // pega próximo token
             getNextToken();
             tok = getToken(1);
-
-            // fim da entrada
-            if (tok.kind == EOF && !g.contains(EOF)){
+            // fim da entrada?
+            if (tok.kind == EOF && ! g.contains(EOF) )
                 eof = true;
-            }
-            if (tok != lastError) {
-                System.out.println(e.getMessage());
-                lastError = tok;
-                // incrementa número de erros
-                contParseError++;
-            }
-            if (eof) {
-                throw new ParseEOFException("EOF encontrado prematuramente.");
-            }
         }
+        if ( tok != lastError) {
+            System.out.println(e.getMessage());
+            lastError = tok;
+            contParseError++;  // incrementa número de erros
+        }
+        if ( eof ) throw new ParseEOFException("EOF found prematurely.");
     }
-
 }
 PARSER_END(langX)
 
