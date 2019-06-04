@@ -146,3 +146,128 @@ protected int insert(data k) {
     return 0;
 }
 ```
+
+## Especificação sintática
+
+Para a especificação sintática, a equipe tomou como base os códigos fontes de exemplo para os capítulos 4 e 5 do livro do Delamaro. Incluímos nesses códigos as alterações aqui documentadas para a especificação léxica e incluímos as alterações de requisito para a segunda tarefa da atividade.
+
+Houve uma mudança na estrutura do código do parser, que passou agora a incluir classes Java. Essa alteração refletiu na necessidade de alterar a forma que vínhamos desenvolvendo o trabalho. Passou a ser necessário incluir a pasta de código Java no processo de compilação do projeto. A alteração abaixo foi realizada no arquivo de definição do projeto:
+
+```xml
+<!-- copia as classes de recovery para compilação -->
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/generated-sources/javacc/recovery/</outputDirectory>
+              <encoding>UTF-8</encoding>
+              <resources>
+                <resource>
+                  <directory>${basedir}/src/main/javacc/recovery/</directory>
+                  <includes>
+                    <include>*.java</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+```
+
+Além dessa alteração, o código XML que empacota o artefato para entrega da tarefa também foi alterada, para incluir na pasta java essas novas classes.
+
+Quanto a essas novas classes Java, só houve necessidade de alteração do código fonte da classe First, para que fossem incluídos, por exemplo, os modificadores de acesso que implementamos:
+
+```java
+// O trecho de código exemplifica nossa alteração
+public class First {
+
+    static public final RecoverySet methoddecl = new RecoverySet();
+    static public final RecoverySet vardecl = new RecoverySet();
+    static public final RecoverySet classlist = new RecoverySet();
+    static public final RecoverySet constructdecl = new RecoverySet();
+    static public final RecoverySet statlist = new RecoverySet();
+    static public final RecoverySet program = classlist;
+
+    static {
+        methoddecl.add(new Integer(langXConstants.INT));
+        methoddecl.add(new Integer(langXConstants.STRING));
+        methoddecl.add(new Integer(langXConstants.IDENT));
+        methoddecl.add(new Integer(langXConstants.BYTE));
+        methoddecl.add(new Integer(langXConstants.SHORT));
+        methoddecl.add(new Integer(langXConstants.LONG));
+        methoddecl.add(new Integer(langXConstants.FLOAT));
+        methoddecl.add(new Integer(langXConstants.PUBLIC));
+        methoddecl.add(new Integer(langXConstants.PRIVATE));
+        methoddecl.add(new Integer(langXConstants.PROTECTED));
+        methoddecl.add(new Integer(langXConstants.FINAL));
+    }
+}
+```
+
+### Definição sintática para operadores lógicos
+
+O trecho de código abaixo contém a definição implementada para o uso de operadores lógicos tais como são utilizados em Java:
+
+```java
+void logicexpression(RecoverySet g) throws ParseEOFException:
+{
+    RecoverySet f1 = new RecoverySet(XOR).union(g);
+    RecoverySet f2 = new RecoverySet(OR).union(f1);
+    RecoverySet f3 = new RecoverySet(AND).union(f2);
+}{
+    try {
+        [<NOT>] expression(f3) (( <XOR> | <OR> | <AND>) [<NOT>] expression(f3))*
+      } catch (ParseException e) {
+        consumeUntil(g, e, "logicexpression");
+    }
+}
+```
+
+Abaixo um trecho de código na linguagem X+++ com o emprego dessas operações:
+
+// TODO exemplo operação lógica
+
+### Definição sintática para variáveis e literais
+
+A definição do não terminal responsável pelos novos tipos que incluímos no código do parser da linguagem X+++ segue abaixo:
+
+```java
+void primitivetype(RecoverySet g) throws ParseEOFException:
+{}{
+    (<INT> | <STRING> | <BYTE> | <SHORT> | <LONG> | <FLOAT>)
+}
+```
+
+Na sequência seu uso na linguagem X+++ num código de controle:
+
+// TODO exemplo uso variáveis e literais
+
+### Definição sintática de qualificadores e identificadores
+
+A implementação sintática dos qualificadores foram realizadas em mais partes do código porque estas ocorrem tanto em definições de métodos quanto de variáveis e outros pontos, tais como temos na linguagem Java. O trecho abaixo exemplifica como foram feitas essas alterações:
+
+```java
+void methoddecl(RecoverySet g) throws ParseEOFException:
+{
+    RecoverySet f1 = new RecoverySet(LBRACKET).union(g);
+    RecoverySet f2 = new RecoverySet(IDENT).union(f1);
+}{
+    [<PUBLIC> | <PRIVATE> | <PROTECTED>]
+    [<FINAL>]
+    (primitivetype(f2) | <IDENT> ) (<LBRACKET> <RBRACKET>)*
+    <IDENT> methodbody(g)
+}
+```
+
+Com essa alteração o trecho de código abaixo é identificado corretamente pelo compilador:
+
+// TODO exemplo de uso de modificador de acesso
