@@ -401,7 +401,7 @@ void classlist(RecoverySet g) throws ParseEOFException:
 void classdecl(RecoverySet g) throws ParseEOFException:
 {}{
     try {
-        [<PUBLIC> | <PRIVATE> | <PROTECTED>] <CLASS>  <IDENT> [ <EXTENDS> <IDENT> ] classbody(g)
+        [<FINAL>] [<PUBLIC> | <PRIVATE> | <PROTECTED>] <CLASS>  <IDENT> [ <EXTENDS> <IDENT> ] classbody(g)
     } catch (ParseException e) {
         consumeUntil(g, e, "classdecl");
     }
@@ -444,8 +444,12 @@ void vardecl(RecoverySet g) throws ParseEOFException:
 
 void constructdecl(RecoverySet g) throws ParseEOFException:
 {}{
-    [<PUBLIC> | <PRIVATE> | <PROTECTED>]
-    <CONSTRUCTOR> methodbody(g)
+    try {
+        [<PUBLIC> | <PRIVATE> | <PROTECTED>]
+        <CONSTRUCTOR> methodbody(g)
+    } catch (ParseException e) {
+       consumeUntil(g, e, "constructdecl");
+    }
 }
 
 void methoddecl(RecoverySet g) throws ParseEOFException:
@@ -453,10 +457,14 @@ void methoddecl(RecoverySet g) throws ParseEOFException:
 	RecoverySet f1 = new RecoverySet(LBRACKET).union(g);
 	RecoverySet f2 = new RecoverySet(IDENT).union(f1);
 }{
-    [<PUBLIC> | <PRIVATE> | <PROTECTED>]
-	[<FINAL>]
-    (primitivetype(f2) | <IDENT> ) (<LBRACKET> <RBRACKET>)*
-    <IDENT> methodbody(g)
+    try {
+        [<PUBLIC> | <PRIVATE> | <PROTECTED>] 
+        [<FINAL>]
+       (primitivetype(f2) | <IDENT> ) (<LBRACKET> <RBRACKET>)*
+       <IDENT> methodbody(g)
+    } catch (ParseException e) {
+       consumeUntil(g, e, "methoddecl");
+    }
 }
 
 void methodbody(RecoverySet g) throws ParseEOFException:
@@ -541,7 +549,7 @@ void atribstat(RecoverySet g) throws ParseEOFException:
 {
     try {
         lvalue(f1) <ASSIGN> ( alocexpression(g) | LOOKAHEAD(3) logicexpression(g) | LOOKAHEAD(3) methodcall(g))
-} catch (ParseException e) {
+    } catch (ParseException e) {
         consumeUntil(g, e, "atribstat");
     }
 }
@@ -590,7 +598,7 @@ void ifstat(RecoverySet g) throws ParseEOFException:
                 f2 = new RecoverySet(ELSE).union(g);
 }{
     try {
-        <IF> <LPAREN> expression(f1) <RPAREN> statement(f2)
+        <IF> <LPAREN> logicexpression(f1) <RPAREN> statement(f2)
         [LOOKAHEAD(1) <ELSE> statement(g)]
     } catch (ParseException e) {
         consumeUntil(g, e, "ifstat");
@@ -637,11 +645,15 @@ void alocexpression(RecoverySet g) throws ParseEOFException:
                 f2 = new RecoverySet(RBRACKET).union(g),
                 f3 = new RecoverySet(LBRACKET).union(g);
 }{
-    <NEW> (
-        LOOKAHEAD(2) <IDENT> <LPAREN> arglist(f1) <RPAREN> |
-        ( primitivetype(f3) | <IDENT> )
-        (<LBRACKET> expression(f2) <RBRACKET>)+
-        )
+    try{
+        <NEW> (
+                 LOOKAHEAD(2) <IDENT> <LPAREN> arglist(f1) <RPAREN> |
+                 ( primitivetype(f3) | <IDENT> )
+                 (<LBRACKET> expression(f2) <RBRACKET>)+
+              )
+    } catch(ParseException e) {
+        consumeUntil(g, e, "alocexpression");
+    }
 }
 
 
