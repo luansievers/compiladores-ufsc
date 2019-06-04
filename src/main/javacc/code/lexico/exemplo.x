@@ -115,15 +115,23 @@ class bintree { /* ná da árvore binária */
     }
 
     void checkNovasVariaveis() {
-        byte testeByte = 1;
-        short testeShort = 1;
-        long testeShort = 1;
-        float testeFloat1 = 5.3876e4;
-        float testeFloat2 = 7.321E-3;
-        float testeFloat3 = 3.2E+4;
-        float testeFloat4 = 0.5e-6;
-        float testeFloat5 = 0.45;
-        float testeFloat6 = 6.e10;
+        byte testeByte;
+        byte testeByte;
+        short testeShort;
+        long testeShort;
+        float testeFloat1;
+        float testeFloat2;
+        float testeFloat3;
+        float testeFloat4;
+
+        testeByte = 1;
+        testeByte = 1;
+        testeShort = 1;
+        testeShort = 1;
+        testeFloat1 = 5.3876e4;
+        testeFloat2 = 7.321E-3;
+        testeFloat3 = 0.5e-6;
+        testeFloat4 = 0.45;
     }
 
 }
