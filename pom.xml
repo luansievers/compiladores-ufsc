@@ -34,7 +34,7 @@
         <executions>
           <execution>
             <id>copy-resources</id>
-            <phase>process-classes</phase>
+            <phase>validate</phase>
             <goals>
               <goal>copy-resources</goal>
             </goals>
