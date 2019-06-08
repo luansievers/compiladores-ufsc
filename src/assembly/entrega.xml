@@ -48,7 +48,14 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>src/main/javacc/code</directory>
+      <directory>src/main/javacc/code/lexical</directory>
+      <outputDirectory>code</outputDirectory>
+      <includes>
+        <include>*.x</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>src/main/javacc/code/syntactic</directory>
       <outputDirectory>code</outputDirectory>
       <includes>
         <include>*.x</include>

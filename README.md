@@ -54,20 +54,16 @@ A entrega deve ser realizada no MOODLE por um dos integrandes da equipe em um ar
 
 A especificação da linguagem que atenderá aos requisitos do enunciado será feita no arquivo [langX++.jj](src/main/javacc/parser/langX.jj). Além da especificação da linguagem, será necessário desenvolver dois exemplos de código da linguagem X+++: um [com erro](src/main/javacc/code/exemplo_erro_lexico.x) e outro [sem erro](src/main/javacc/code/exemplo_lexico.x).
 
-Para gerar os arquivos *.java e *.class da especificação, executar o comando abaixo:
+Para gerar os arquivos *.java e *.class da especificação, executar o comando abaixo no bash (no Windows, no Git Bash):
 
 ```bash
-mvn compile
+./run.sh build
 ```
 
-A validação da especificação deve ser feita utilizando os arquivos da linguagem X+++. Executar o teste com os códigos abaixo, para que além da execução também sejam salvos os arquivos de log, que também deverão ser entregues:
+A validação da especificação deve ser feita utilizando os arquivos da linguagem X+++. Executar o teste abaixo:
 
 ```bash
-# Arquivo léxicamente correto, última linha do log deverá ser "Program successfully analyzed."
-mvn exec:java '-Dexec.args="src/main/javacc/code/exemplo_lexico.x"' -q --log-file target/exemplo_lexico.log
-
-# Arquivo com erro léxico, última linha do log deverá ser diferente de "Program successfully analyzed."
-mvn exec:java '-Dexec.args="src/main/javacc/code/exemplo_erro_lexico.x"' -q --log-file target/exemplo_erro_lexico.log
+./run.sh test
 ```
 
 ## Preparando o arquivo de entrega
@@ -75,8 +71,7 @@ mvn exec:java '-Dexec.args="src/main/javacc/code/exemplo_erro_lexico.x"' -q --lo
 Para preparar o arquivo de entrega, executar os comandos Maven de compilação e teste, para que sejam gerados todos os arquivos. Além disso, converter o [arquivo de relatorio](resoucers/relatorio.md) de Markdown para PDF, salvando na pasta resources com o nome relatorio.pdf. Por último, executar o comando abaixo:
 
 ```bash
-# Prepara o arquivo para ser enviado no Moodle
-mvn package
+./run.sh package
 ```
 
 Será gerado na pasta target o arquivo compiladores_bruno_djessica_luan.zip com a seguinte estrutura:
