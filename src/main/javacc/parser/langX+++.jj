@@ -432,7 +432,6 @@ void vardecl(RecoverySet g) throws ParseEOFException:
 	RecoverySet f1 = new RecoverySet(IDENT).union(g);
 }{
     try {
-        [<PUBLIC> | <PRIVATE> | <PROTECTED>]
         [<FINAL>]
         (primitivetype(f1) | <IDENT> )
         <IDENT> ( <LBRACKET> <RBRACKET>)*
@@ -458,7 +457,7 @@ void methoddecl(RecoverySet g) throws ParseEOFException:
 	RecoverySet f2 = new RecoverySet(IDENT).union(f1);
 }{
     try {
-        [<PUBLIC> | <PRIVATE> | <PROTECTED>] 
+        [<PUBLIC> | <PRIVATE> | <PROTECTED>]
         [<FINAL>]
        (primitivetype(f2) | <IDENT> ) (<LBRACKET> <RBRACKET>)*
        <IDENT> methodbody(g)
