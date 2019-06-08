@@ -6,7 +6,7 @@ class bintree { /* ná da árvore binária */
 
 
     final class data { // define um classe aninhada do tipo data (dia, mes ano)
-        private int dia, mes, ano;
+        int dia, mes, ano;
 
         // construtor 1, sem parâmetros
         constructor() {
@@ -40,7 +40,7 @@ class bintree { /* ná da árvore binária */
 
 
     // variáveis da classe bintree
-    public data key;       // chave de comparação
+    data key;       // chave de comparação
     bintree left,right; // referência para os filhos
 
     constructor(data x) {
