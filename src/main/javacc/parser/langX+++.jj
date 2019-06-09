@@ -419,6 +419,7 @@ void classbody(RecoverySet g) throws ParseEOFException:
            [LOOKAHEAD(2) classlist(f5)]
            (LOOKAHEAD(3) vardecl(f2) <SEMICOLON>)*
            (LOOKAHEAD(2) atribstat(f2) <SEMICOLON>)*
+           (LOOKAHEAD(4) atribdecl(f2) <SEMICOLON>)*
            (LOOKAHEAD(2) constructdecl(f4))*
            (methoddecl(f3))*
         <RBRACE>
