@@ -10,7 +10,7 @@ class exemplo_syntatic_ok {
     short exemploShort2;
     long exemploLong2;
     float exemploFloat2;
-    exemploByte2 = 3
+    exemploByte2 = 3;
     exemploShort2 = 4;
     exemploLong2 = 3.456;
     exemploFloat2 = 5.1;
