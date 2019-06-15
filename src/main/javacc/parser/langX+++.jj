@@ -18,11 +18,11 @@ public class langX {
     boolean debug_recovery;
     Token lastError = null;
 
-    public static void main(String args[]) throws ParseException {
+    public static void main(String[] args) throws ParseException {
         boolean debug_as = false;
         boolean debug_recovery = false;
         //nome do arquivo a ser analisado
-        String filename = "";
+        String filename;
         // analisador léxico/sintático
         langX parser;
         int i;
@@ -31,12 +31,12 @@ public class langX {
         System.out.println(Version);
         // lê os parâmetros passados para o compilador
         for (i = 0; i < args.length - 1; i++) {
-            if (args[i].toLowerCase().equals("-debug_AS")) {
+            if (args[i].toLowerCase().equals("-debug_as")) {
                 debug_as = true;
             } else if (args[i].toLowerCase().equals("-debug_recovery")) {
                 debug_recovery = true;
             } else {
-                System.out.println("O uso é: java langX [-debug_AS] [-debug_recovery] nomeDoArquivo");
+                System.out.println("O uso é: java langX [-debug_as] [-debug_recovery] arquivo");
                 System.exit(0);
             }
         }
@@ -721,18 +721,16 @@ void unaryexpr() throws ParseEOFException:
 
 void factor() throws ParseEOFException:
 {}{
-    (
-        <int_constant> |
-        <string_constant> |
-        <byte_constant> |
-        <short_constant> |
-        <long_constant> |
-        <float_constant> |
-        <null_constant> |
-        LOOKAHEAD(3) lvalue(null) |
-        methodcall(null) |
-        <LPAREN> expression(null) <RPAREN>
-    )
+    <int_constant> |
+    <string_constant> |
+    <byte_constant> |
+    <short_constant> |
+    <long_constant> |
+    <float_constant> |
+    <null_constant> |
+    LOOKAHEAD(3) lvalue(null) |
+    methodcall(null) |
+    <LPAREN> expression(null) <RPAREN>
 }
 
 void arglist(RecoverySet g) throws ParseEOFException:
@@ -744,5 +742,5 @@ void arglist(RecoverySet g) throws ParseEOFException:
 
 void primitivetype(RecoverySet g) throws ParseEOFException:
 {}{
-	(<INT> | <STRING> | <BYTE> | <SHORT> | <LONG> | <FLOAT>)
+	<INT> | <STRING> | <BYTE> | <SHORT> | <LONG> | <FLOAT>
 }
