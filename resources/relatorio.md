@@ -6,21 +6,54 @@ Alunos: Bruno Ribeiro da Silva (12200992), Djéssica Schell Crocetta (12203762),
 
 ## Atribuições
 
-Os alunos Bruno e Luan foram responsáveis pela implementação das extensões da liguagem X+++ para atenderem os requisitos da atividade. A aluna Djéssica foi responsável por parte do relatório. Abaixo uma lista de contribuições ao repositório do trabalho:
+Os alunos Bruno e Luan foram responsáveis pela implementação das extensões da liguagem X+++ para atenderem os requisitos da atividade. A aluna Djéssica foi responsável por parte do relatório e exemplos sintáticos. Abaixo uma lista de contribuições ao repositório do trabalho:
 
-* 980e36bf - Completed work log. Minor fix in README
-* fc3c86d - (HEAD -> master, origin/master, origin/HEAD) Update relatorio .md - incompleto (25 hours ago) Djéssica S.C
-* 4dec0e2 - Added tests and fixed code to deliver (7 days ago) Luan Felipe Sievers
-* 76bc112 - Updated log package(7 days ago) Luan Felipe Sievers
-* ceeb3d6 - Updated task description (8 days ago) Bruno Ribeiro da Silva
-* 4c359e7 - Added coments and constants bytes, short, long and float (11 days ago) Luan Felipe Sievers
-* 882e73d - Added some constants. Implemented float (12 days ago) Bruno Ribeiro da Silva
-* 82a8f10 - Formatted parser code. Moved examples to proper folders (12 days ago) Bruno Ribeiro da Silva
-* 6085ef0 - Updated README file. Added X+++ code. Minor fixes. (13 days ago) Bruno Ribeiro da Silva
-* 12d1711 - Added Examples (3 weeks ago) Luan Felipe Sievers
-* 5c4dc3d - POM enhanced to automatize some tasks. Instructions added to read me file (3 weeks ago) Bruno Ribeiro da Silva
-* 7bca20d - add delamaro book and example code (3 weeks ago) Bruno Ribeiro da Silva
-* 5cea126 - Initial commit (3 weeks ago) Bruno Ribeiro da Silva
+* 27bd072b - Bruno Ribeiro da Silva - Minor fix in parser to allow debugging - 15 Jun, 2019
+* 61bd83da - Luan Felipe Sievers - Fix classbody - 12 Jun, 2019
+* e0cf46c9 - Luan Felipe Sievers - Correção do exemplo - 12 Jun, 2019
+* 1557fbb8 - Djéssica S.C - exemplos erro sintatico adicionados. 09 Jun, 2019
+* 447548a5 - Djéssica S.C - mais exemplos systatic adicionados. 09 Jun, 2019
+* e28928cc - Djéssica S.C - exemplos systatic sem erros adicionados. 09 Jun, 2019
+* 3a7963b2 - Luan Felipe Sievers - Fix atribdecl on classbody. 09 Jun, 2019
+* 722fe9f6 - Luan Felipe Sievers - Implemented atribdecl. 08 Jun, 2019
+* 3d3b60fb - Luan Felipe Sievers - Added error test. 08 Jun, 2019
+* eb211dac - Luan Felipe Sievers - Added ok test. 08 Jun, 2019
+* 30cee0d7 - Luan Felipe Sievers - Removed unnecessary file. 08 Jun, 2019
+* fa02886e - Luan Felipe Sievers - Fix lexical example - variable only final needed. 08 Jun, 2019
+* 5a2bdfa9 - Luan Felipe Sievers - Removed private, public, protected from vardecl. 08 Jun, 2019
+* 3c884ff8 - Bruno Ribeiro da Silva - Added options to run.sh. Updated README and assembler code. 08 Jun, 2019
+* 85ad9390 - Bruno Ribeiro da Silva - Improved test routines of run.sh. 08 Jun, 2019
+* 0e26b255 - Luan Felipe Sievers - Change order of copy resources - fix compile. 05 Jun, 2019
+* 946566ca - Luan Felipe Sievers - fix exemplo lexico. 04 Jun, 2019
+* 660d8aa1 - Luan Felipe Sievers - Fix final classdecl, missing trycatch, ifstat. 04 Jun, 2019
+* 39393ddf - Bruno Ribeiro da Silva - Updated assembler code to include recovery package in the zip file. Started work report. 04 Jun, 2019
+* b18650aa - Luan Felipe Sievers - final. 03 Jun, 2019
+* 21092387 - Luan Felipe Sievers - Maybe fix?. 03 Jun, 2019
+* e18a24d9 - Luan Felipe Sievers - Adicionado arquivo 'shortcut' para rodar testes. 03 Jun, 2019
+* 201f3176 - Luan Felipe Sievers - Adicionados arquivo sintático (organização). 03 Jun, 2019
+* 7ae2a662 - Luan Felipe Sievers - Adicionados códigos exemplos de semples. 03 Jun, 2019
+* 69bb52c2 - Luan Felipe Sievers - Reorganizado exemplos léxicos. 03 Jun, 2019
+* 6fdba899 - Luan Felipe Sievers - Adicionado tratamento para variável com underlinev. 03 Jun, 2019
+* 9d674382 - Luan Felipe Sievers - Fix para compilação. 03 Jun, 2019
+* c27be37c - Luan Felipe Sievers - Modified maven compile process to include source code from recovery folder. 03 Jun, 2019
+* 89642291 - Bruno Ribeiro da Silva - Added semicolon to fix some JavaCC errors. 03 Jun, 2019
+* 8c9659a0 - Luan Felipe Sievers - Finalizado código do analisador sintático. 02 Jun, 2019
+* 9e4c48d5 - Bruno Ribeiro da Silva - Updated parser code to reflect changes from chapters 4 to 5 of Delamaro's Book. 02 Jun, 2019
+* b37a6d7d - Bruno Ribeiro da Silva - Added description to task 2. 17 Mai, 2019
+* a06f2ce6 - Luan Felipe Sievers - Entrega 1. 28 Abr, 2019
+* 980e36bf - Bruno Ribeiro da Silva - Completed work log. Minor fix in README. 25 Abr, 2019
+* fc3c86d7 - Djéssica S.C - Update relatorio.md - incompleto. 24 Abr, 2019
+* 4dec0e28 - Luan Felipe Sievers - formatado. 19 Abr, 2019
+* 76bc1129 - Luan Felipe Sievers - Alteração da pasta do log para o package. 18 Abr, 2019
+* ceeb3d6f - Bruno Ribeiro da Silva - Updated task description. 18 Abr, 2019
+* 4c359e79 - Luan Felipe Sievers - adicionado comentários e constantes byte, short, long e float *falta testes. 14 Abr, 2019
+* 882e73d0 - Bruno Ribeiro da Silva - Added some constants. Implemented float. 13 Abr, 2019
+* 82a8f10e - Bruno Ribeiro da Silva - Formatted parser code. Moved examples to proper folders. 13 Abr, 2019
+* 6085ef06 - Bruno Ribeiro da Silva - Updated README file. Added X+++ code. Minor fixes.  12 Abr, 2019
+* 12d17119 - Luan Felipe Sievers - Adicionado mais exemplos. 07 Abr, 2019
+* 5c4dc3d9 - Bruno Ribeiro da Silva - POM enhanced to automatize some tasks. Instructions added to read me file. 07 Abr, 2019
+* 7bca20db - Bruno Ribeiro da Silva - add delamaro book and example code. 04 Abr, 2019
+* 5cea126f - Bruno Ribeiro da Silva - Initial commit. 04 Abr, 2019
 
 ## Especificação léxica da linguagem X+++
 
@@ -234,7 +267,22 @@ void logicexpression(RecoverySet g) throws ParseEOFException:
 
 Abaixo um trecho de código na linguagem X+++ com o emprego dessas operações:
 
-// TODO exemplo operação lógica
+```java
+protected void testarDoisValores(float x, log y) {
+    if (x && y) {
+        print "AND";
+    }
+    if (x || y) {
+        print "OR";
+    }
+    if (x ^ y) {
+        print "XOR";
+    }
+    if (!x) {
+        print "NOT";
+    }
+}
+```
 
 ### Definição sintática para variáveis e literais
 
@@ -249,7 +297,29 @@ void primitivetype(RecoverySet g) throws ParseEOFException:
 
 Na sequência seu uso na linguagem X+++ num código de controle:
 
-// TODO exemplo uso variáveis e literais
+```java
+class exemplo_syntatic_ok {
+
+    byte exemploByte = 2;
+    short exemploShort = 1;
+    long exemploLong = 2.3456;
+    float exemploFloat = 1.2;
+
+    byte exemploByte2;
+    short exemploShort2;
+    long exemploLong2;
+    float exemploFloat2;
+    exemploByte2 = 3;
+    exemploShort2 = 4;
+    exemploLong2 = 3.456;
+    exemploFloat2 = 5.1;
+
+    byte exemploByte3;
+    short exemploShort3;
+    long exemploLong3;
+    float exemploFloat3;
+]
+```
 
 ### Definição sintática de qualificadores e identificadores
 
@@ -270,4 +340,34 @@ void methoddecl(RecoverySet g) throws ParseEOFException:
 
 Com essa alteração o trecho de código abaixo é identificado corretamente pelo compilador:
 
-// TODO exemplo de uso de modificador de acesso
+```java
+protected long comparaSeLongMaiorQueDefinido(long x) {
+    if (x > exemploByte) {
+        print "Long maior!";
+        return 1;
+    }
+    return -1;
+}
+
+private float comparaSeFloatIgualAoDefinido(float x) {
+    if(x == exemploFloat){
+        print "float igual!";
+        return 1;
+    }
+    return -1;
+}
+
+public byte comparaSeByteMenorQueDefinido(byte x) {
+    if (x < exemploByte) {
+        print "Byte menor!";
+        return 1;
+    }
+    return -1;
+}
+
+public final void comparaDoisFloat(float x) {
+    if(x < exemploFloat) { print "Valor informado Menor que o definido!"; }
+    if(x > exemploFloat) { print "Valor informado Maior que o definido!"; }
+    if(x == exemploFloat) { print "Valor informado Igual ao definido!"; }
+}
+```

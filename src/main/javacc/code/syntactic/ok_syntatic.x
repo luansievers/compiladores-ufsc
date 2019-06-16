@@ -52,7 +52,7 @@ class exemplo_syntatic_ok {
         return -1;
     }
 
-    public void comparaDoisFloat(float x) {
+    public final void comparaDoisFloat(float x) {
         if(x < exemploFloat) { print "Valor informado Menor que o definido!"; }
         if(x > exemploFloat) { print "Valor informado Maior que o definido!"; }
         if(x == exemploFloat) { print "Valor informado Igual ao definido!"; }
@@ -76,7 +76,7 @@ class exemplo_syntatic_ok {
         if(x == exemploByte) { print "Valor informado Igual ao definido!"; }
     }
 
-    byte retornaByteMaior() {
+    final byte retornaByteMaior() {
         exemploByte3 = 5;
         if(exemploByte2 > exemploByte3) {
             return exemploByte2;
