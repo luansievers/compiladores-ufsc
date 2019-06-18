@@ -297,8 +297,27 @@ void primitivetype(RecoverySet g) throws ParseEOFException:
 }
 ```
 
-E para que seja possível inicializar uma variável fora de qualquer método, o seguinte trecho foi adicionado:
+E para que seja possível inicializar uma variável fora de qualquer método, os seguintes trechos foram adicionados:
 
+> Método para inicialicação do tipo int x = 1;
+```java
+void atribdecl(RecoverySet g) throws ParseEOFException:
+{
+	RecoverySet f1 = new RecoverySet(IDENT).union(g);
+}{
+    try {
+        [<FINAL>]
+        primitivetype(f1)
+        <IDENT>
+        <ASSIGN>
+        (alocexpression(g) | LOOKAHEAD(3) logicexpression(g))
+    } catch (ParseException e) {
+        consumeUntil(g, e, "atribdecl");
+    }
+}
+```
+
+> Possibilidade de inicialicação dentro da classe
 ```java
 void classbody(RecoverySet g) throws ParseEOFException:
 {
@@ -321,6 +340,24 @@ void classbody(RecoverySet g) throws ParseEOFException:
            methoddecl(f3)
            )*
         <RBRACE>
+    }
+}
+```
+Ainda na parte de declaração de variável foi definido também a parte de inicialização dentro do método no trecho a seguir no métogo ```statement``` 
+
+> Possibilidade de inicialicação dentro de métodos
+```java
+void statement(RecoverySet g) throws ParseEOFException:
+.
+.
+.
+
+        <SEMICOLON>
+    |
+        LOOKAHEAD(4)
+        atribdecl(f1) <SEMICOLON>
+    } catch (ParseException e) {
+        consumeUntil(g, e, "statement");
     }
 }
 ```
