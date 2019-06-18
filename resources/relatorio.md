@@ -8,9 +8,10 @@ Alunos: Bruno Ribeiro da Silva (12200992), Djéssica Schell Crocetta (12203762),
 
 Os alunos Bruno e Luan foram responsáveis pela implementação das extensões da liguagem X+++ para atenderem os requisitos da atividade. A aluna Djéssica foi responsável por parte do relatório e exemplos sintáticos. Abaixo uma lista de contribuições ao repositório do trabalho:
 
-* 27bd072b - Bruno Ribeiro da Silva - Minor fix in parser to allow debugging - 15 Jun, 2019
-* 61bd83da - Luan Felipe Sievers - Fix classbody - 12 Jun, 2019
-* e0cf46c9 - Luan Felipe Sievers - Correção do exemplo - 12 Jun, 2019
+* e36115f0 - Djéssica S.C - alteração no relatório e exemplo sintatico. 16 Jun, 2019
+* 27bd072b - Bruno Ribeiro da Silva - Minor fix in parser to allow debugging. 15 Jun, 2019
+* 61bd83da - Luan Felipe Sievers - Fix classbody. 12 Jun, 2019
+* e0cf46c9 - Luan Felipe Sievers - Correção do exemplo. 12 Jun, 2019
 * 1557fbb8 - Djéssica S.C - exemplos erro sintatico adicionados. 09 Jun, 2019
 * 447548a5 - Djéssica S.C - mais exemplos systatic adicionados. 09 Jun, 2019
 * e28928cc - Djéssica S.C - exemplos systatic sem erros adicionados. 09 Jun, 2019
@@ -65,6 +66,8 @@ Para o desenvolvimento do analisador léxico dessa atividade foi utilizado o có
 
 O Java Compiler Compiler (JavaCC) foi utilizado através de um plugin para o automizador de compilação Maven. Conforme foram realizadas as alterações no código fonte, foram utilizados para controle os exemplos do livro para verificar se as alterações feitas estavam mantendo a consistência da linguagem, isto é, não estavam sendo detectados erros onde não haviam erros ou tokens inválidos.
 
+Foi verificado que os exemplos [error_classbody2.x](src/main/javacc/code/syntactic/error_classbody2.x) e [error_statement2.x](src/main/javacc/code/syntactic/error_statement2.x) estão com erro de estouro de memória (StackOverflow) e, como foi constatado que o exemplo do livro apresenta o mesmo erro, não foi feito um tratamento para a correção do mesmo.
+
 ### Operadores lógicos
 
 Os operadores lógicos AND, OR, XOR e NOT foram definidos conforme o trecho de código abaixo:
@@ -113,12 +116,11 @@ A identificação dessas variáveis e literais foram adicionados aos tokens de p
 E a expressão regular para float:
 
 ```java
-< float_constant: (
-                     <int_constant> "."
-                    ( <int_constant> ( ("e" | "E")? ("-")? <int_constant> )? )? |
-                    (<int_constant>)? "." <int_constant>
-                    (("e" | "E")? ("-")? <int_constant>)? ) ("F" | "f")?
-                    >
+  < float_constant: (
+        <int_constant> "."( <int_constant> ( ("e" | "E")? ("-")? <int_constant> )? )?
+        |
+        (<int_constant>)? "." <int_constant> (("e" | "E")? ("-")? <int_constant>)? ) ("F" | "f")?
+    >
 ```
 
 Essa expressão regular permite que sejam identificados números de ponto conforme os padrões abaixo:
@@ -253,9 +255,9 @@ O trecho de código abaixo contém a definição implementada para o uso de oper
 ```java
 void logicexpression(RecoverySet g) throws ParseEOFException:
 {
-    RecoverySet f1 = new RecoverySet(XOR).union(g);
-    RecoverySet f2 = new RecoverySet(OR).union(f1);
-    RecoverySet f3 = new RecoverySet(AND).union(f2);
+	RecoverySet f1 = new RecoverySet(XOR).union(g);
+	RecoverySet f2 = new RecoverySet(OR).union(f1);
+	RecoverySet f3 = new RecoverySet(AND).union(f2);
 }{
     try {
         [<NOT>] expression(f3) (( <XOR> | <OR> | <AND>) [<NOT>] expression(f3))*
@@ -291,7 +293,35 @@ A definição do não terminal responsável pelos novos tipos que incluímos no 
 ```java
 void primitivetype(RecoverySet g) throws ParseEOFException:
 {}{
-    (<INT> | <STRING> | <BYTE> | <SHORT> | <LONG> | <FLOAT>)
+    <INT> | <STRING> | <BYTE> | <SHORT> | <LONG> | <FLOAT>
+}
+```
+
+E para que seja possível inicializar uma variável fora de qualquer método, o seguinte trecho foi adicionado:
+
+```java
+void classbody(RecoverySet g) throws ParseEOFException:
+{
+    RecoverySet f2 = new RecoverySet(SEMICOLON).union(g).remove(IDENT),
+                f3 = First.methoddecl.union(g).remove(IDENT),
+                f4 = First.constructdecl.union(f3).remove(IDENT),
+                f5 = First.vardecl.union(f4).remove(IDENT);
+}{
+    try {
+        <LBRACE>
+           [LOOKAHEAD(2) classlist(f5)]
+           (LOOKAHEAD(4) vardecl(f2) <SEMICOLON>
+           |
+           LOOKAHEAD(2) atribstat(f2) <SEMICOLON>
+           |
+           LOOKAHEAD(4) atribdecl(f2) <SEMICOLON>
+           |
+           LOOKAHEAD(2) constructdecl(f4)
+           |
+           methoddecl(f3)
+           )*
+        <RBRACE>
+    }
 }
 ```
 
@@ -318,7 +348,15 @@ class exemplo_syntatic_ok {
     short exemploShort3;
     long exemploLong3;
     float exemploFloat3;
-]
+
+    short comparaSeShortIgualAoDefinido(short x) {
+        if (x == exemploShort) {
+            print "Short igual!";
+            return 1;
+        }
+        return -1;
+    }
+}
 ```
 
 ### Definição sintática de qualificadores e identificadores
