@@ -37,9 +37,9 @@ A entrega deve ser realizada no MOODLE por um dos integrandes da equipe em um ar
 
 ---
 
-## Enuciado da segunda atividade
+## Enunciado da segunda atividade
 
-- Ler os capítulos 4 e 5 do [livro Delamaro (2004)](resoucers/livro.pdf);
+- Ler os capítulos 4 e 5 do [livro Delamaro (2004)](resources/livro.pdf);
 - Implementar o analisador sintático com tratamento de erros para a linguagem X++, especificado nos capítulos 4 e 5 do livro Delamaro (2004), utilizando JavaCC, adicionando as seguintes extensões (conforme usado na linguagem JAVA):
   - Possibilidade de inicializar uma variável fora de qualquer método;
   - Operadores lógicos AND, OR, XOR e NOT;
@@ -50,9 +50,16 @@ A entrega deve ser realizada no MOODLE por um dos integrandes da equipe em um ar
 
 ---
 
+## Enunciado da terceira atividade
+
+- Ler o capítulo 6 do [livro Delamaro (2004)](resources/livro.pdf);
+- Continuar o trabalho que fora realizado nas atividades IC1 e IC2, implementando a árvore sintática para a linguagemX+++, especificada no capítulo 6 do livro Delamaro (2004), utilizando JavaCC, adicionando as seguintes extensões (conforme usado na linguagem JAVA):
+  – Adaptar os códigos-fonte para permitir a geração de um arquivo com um LOG representando a árvore sintática dos programas compilados pelo analisador sintático na linguagem X+++;
+  – Criar dois programas exemplo em linguagem X+++ para testar a geração da árvore sintática e gerar os respectivos arquivos LOG com a árvore sintática gerada pelo parser.
+
 ## Compilando o projeto
 
-A especificação da linguagem que atenderá aos requisitos do enunciado será feita no arquivo [langX++.jj](src/main/javacc/parser/langX.jj). Além da especificação da linguagem, será necessário desenvolver dois exemplos de código da linguagem X+++: um [com erro](src/main/javacc/code/exemplo_erro_lexico.x) e outro [sem erro](src/main/javacc/code/exemplo_lexico.x).
+A especificação da linguagem que atenderá aos requisitos do enunciado será feita no arquivo [langX++.jj](src/main/javacc/parser/langX+++.jj). Além da especificação da linguagem, será necessário desenvolver dois exemplos de código da linguagem X+++: um [com erro](src/main/javacc/code/exemplo_erro_lexico.x) e outro [sem erro](src/main/javacc/code/exemplo_lexico.x).
 
 Para gerar os arquivos *.java e *.class da especificação, executar o comando abaixo no bash (no Windows, no Git Bash):
 
