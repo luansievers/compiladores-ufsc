@@ -257,9 +257,9 @@ O trecho de código abaixo contém a definição implementada para o uso de oper
 ```java
 void logicexpression(RecoverySet g) throws ParseEOFException:
 {
-	RecoverySet f1 = new RecoverySet(XOR).union(g);
-	RecoverySet f2 = new RecoverySet(OR).union(f1);
-	RecoverySet f3 = new RecoverySet(AND).union(f2);
+    RecoverySet f1 = new RecoverySet(XOR).union(g);
+    RecoverySet f2 = new RecoverySet(OR).union(f1);
+    RecoverySet f3 = new RecoverySet(AND).union(f2);
 }{
     try {
         [<NOT>] expression(f3) (( <XOR> | <OR> | <AND>) [<NOT>] expression(f3))*
@@ -302,10 +302,11 @@ void primitivetype(RecoverySet g) throws ParseEOFException:
 E para que seja possível inicializar uma variável fora de qualquer método, os seguintes trechos foram adicionados:
 
 > Método para inicialicação do tipo int x = 1;
+
 ```java
 void atribdecl(RecoverySet g) throws ParseEOFException:
 {
-	RecoverySet f1 = new RecoverySet(IDENT).union(g);
+    RecoverySet f1 = new RecoverySet(IDENT).union(g);
 }{
     try {
         [<FINAL>]
@@ -320,6 +321,7 @@ void atribdecl(RecoverySet g) throws ParseEOFException:
 ```
 
 > Possibilidade de inicialicação dentro da classe
+
 ```java
 void classbody(RecoverySet g) throws ParseEOFException:
 {
@@ -345,9 +347,11 @@ void classbody(RecoverySet g) throws ParseEOFException:
     }
 }
 ```
-Ainda na parte de declaração de variável foi definido também a parte de inicialização dentro do método no trecho a seguir no métogo ```statement``` 
+
+Ainda na parte de declaração de variável foi definido também a parte de inicialização dentro do método no trecho a seguir no métogo ```statement```
 
 > Possibilidade de inicialicação dentro de métodos
+
 ```java
 void statement(RecoverySet g) throws ParseEOFException:
 .
