@@ -33,7 +33,7 @@
         <version>2.6</version>
         <executions>
           <execution>
-            <id>copy-resources</id>
+            <id>copy-resources-recovery</id>
             <phase>validate</phase>
             <goals>
               <goal>copy-resources</goal>
@@ -51,6 +51,26 @@
               </resources>
             </configuration>
           </execution>
+          <execution>
+            <id>copy-resources-syntactictree</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/generated-sources/javacc/syntacticTree/</outputDirectory>
+              <encoding>UTF-8</encoding>
+              <resources>
+                <resource>
+                  <directory>${basedir}/src/main/javacc/syntacticTree/</directory>
+                  <includes>
+                    <include>*.java</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+
         </executions>
       </plugin>
       <!-- define a classe principal para exec:java -->

@@ -27,6 +27,13 @@
       </includes>
     </fileSet>
     <fileSet>
+      <directory>target/generated-sources/javacc/syntacticTree</directory>
+      <outputDirectory>java</outputDirectory>
+      <includes>
+        <include>*.java</include>
+      </includes>
+    </fileSet>
+    <fileSet>
       <directory>target/classes/parser</directory>
       <outputDirectory>class</outputDirectory>
       <includes>
