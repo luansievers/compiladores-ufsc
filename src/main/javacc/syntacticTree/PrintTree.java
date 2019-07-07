@@ -727,6 +727,78 @@ public class PrintTree {
             x.position.image);
     }
 
+    // -------------------------- Constante byte ----------------------
+    public void numberByteConstNode(ByteConstNode x) {
+        if (x == null) {
+            return;
+        }
+
+        x.number = kk++;
+    }
+
+    public void printByteConstNode(ByteConstNode x) {
+        if (x == null) {
+            return;
+        }
+
+        System.out.println();
+        System.out.print(x.number + ": ByteConstNode ===> " + x.position.image);
+    }
+
+    // -------------------------- Constante short ----------------------
+    public void numberShortConstNode(ShortConstNode x) {
+        if (x == null) {
+            return;
+        }
+
+        x.number = kk++;
+    }
+
+    public void printShortConstNode(ShortConstNode x) {
+        if (x == null) {
+            return;
+        }
+
+        System.out.println();
+        System.out.print(x.number + ": ShortConstNode ===> " + x.position.image);
+    }
+
+    // -------------------------- Constante long ----------------------
+    public void numberLongConstNode(LongConstNode x) {
+        if (x == null) {
+            return;
+        }
+
+        x.number = kk++;
+    }
+
+    public void printLongConstNode(LongConstNode x) {
+        if (x == null) {
+            return;
+        }
+
+        System.out.println();
+        System.out.print(x.number + ": LongConstNode ===> " + x.position.image);
+    }
+
+    // -------------------------- Constante float ----------------------
+    public void numberFloatConstNode(FloatConstNode x) {
+        if (x == null) {
+            return;
+        }
+
+        x.number = kk++;
+    }
+
+    public void printFloatConstNode(FloatConstNode x) {
+        if (x == null) {
+            return;
+        }
+
+        System.out.println();
+        System.out.print(x.number + ": FloatConstNode ===> " + x.position.image);
+    }
+
     // ------------------------------ Constante null --------------------------
     public void numberNullConstNode(NullConstNode x) {
         if (x == null) {
@@ -852,6 +924,14 @@ public class PrintTree {
             printIntConstNode((IntConstNode) x);
         } else if (x instanceof StringConstNode) {
             printStringConstNode((StringConstNode) x);
+        } else if (x instanceof ByteConstNode) {
+            printByteConstNode((ByteConstNode) x);
+        } else if (x instanceof ShortConstNode) {
+            printShortConstNode((ShortConstNode) x);
+        } else if (x instanceof LongConstNode) {
+            printLongConstNode((LongConstNode) x);
+        } else if (x instanceof FloatConstNode) {
+            printFloatConstNode((FloatConstNode) x);
         } else if (x instanceof NullConstNode) {
             printNullConstNode((NullConstNode) x);
         } else if (x instanceof IndexNode) {
@@ -882,6 +962,14 @@ public class PrintTree {
             numberIntConstNode((IntConstNode) x);
         } else if (x instanceof StringConstNode) {
             numberStringConstNode((StringConstNode) x);
+        } else if (x instanceof ByteConstNode) {
+            numberByteConstNode((ByteConstNode) x);
+        } else if (x instanceof ShortConstNode) {
+            numberShortConstNode((ShortConstNode) x);
+        } else if (x instanceof LongConstNode) {
+            numberLongConstNode((LongConstNode) x);
+        } else if (x instanceof FloatConstNode) {
+            numberFloatConstNode((FloatConstNode) x);
         } else if (x instanceof NullConstNode) {
             numberNullConstNode((NullConstNode) x);
         } else if (x instanceof IndexNode) {

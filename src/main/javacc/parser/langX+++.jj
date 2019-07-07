@@ -897,10 +897,10 @@ ExpreNode factor() throws ParseEOFException:
     }{
     t = <int_constant> { e = new IntConstNode(t); }|
     t = <string_constant> { e = new StringConstNode(t); }|
-    <byte_constant> |
-    <short_constant> |
-    <long_constant> |
-    <float_constant> |
+    t = <byte_constant> { e = new ByteConstNode(t); }|
+    t = <short_constant> { e = new ShortConstNode(t); }|
+    t = <long_constant> { e = new LongConstNode(t); }|
+    t = <float_constant> { e = new FloatConstNode(t); }|
     t = <null_constant> { e = new NullConstNode(t); }|
     LOOKAHEAD(3) e = lvalue(null) |
     methodcall(null) |
