@@ -48,6 +48,13 @@
       </includes>
     </fileSet>
     <fileSet>
+      <directory>target/classes/syntacticTree</directory>
+      <outputDirectory>class</outputDirectory>
+      <includes>
+        <include>*.class</include>
+      </includes>
+    </fileSet>
+    <fileSet>
       <directory>src/main/javacc/parser</directory>
       <outputDirectory>jj</outputDirectory>
       <includes>

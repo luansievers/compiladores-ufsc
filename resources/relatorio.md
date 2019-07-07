@@ -8,6 +8,7 @@ Alunos: Bruno Ribeiro da Silva (12200992), Djéssica Schell Crocetta (12203762),
 
 Os alunos Bruno e Luan foram responsáveis pela implementação das extensões da liguagem X+++ para atenderem os requisitos da atividade. A aluna Djéssica foi responsável por parte do relatório e exemplos sintáticos. Abaixo uma lista de contribuições ao repositório do trabalho:
 
+* 75e794a  - Bruno Ribeiro da Silva - Added print method. Resolved void to proper types in all parser methods. 7 Jul, 2019
 * 2efa7da5 - Luan Felipe Sievers - Adicionados algumas coisas faltantes no relatorio. 18 Jun, 2019
 * 0f0f3620 - Luan Felipe Sievers - Deletados arquivos conforme orientação do Prof. 18 Jun, 2019
 * e36115f0 - Djéssica S.C - alteração no relatório e exemplo sintatico. 16 Jun, 2019
@@ -452,3 +453,7 @@ public final void comparaDoisFloat(float x) {
     if(x == exemploFloat) { print "Valor informado Igual ao definido!"; }
 }
 ```
+
+### Impressão da árvore sintática
+
+Para a impressão da árvore sintática, foi necessária a inclusão de 34 classes Java do pacote syntacticTree, que totalizam aproximadamente 1400 linhas de código. Além disso, toda a definição do parser precisou ser revisada porque todos os métodos retornavam nulo e nesse ponto precisam retornar objetos do pacote syntacticTree correspondentes ao método em avaliação. Além dos retornos, o método principal do parser também foi alterado para a adição da opção de impressão da árvore sintática. Infelizmente após as alterações que permearam por toda a base de código não foi possível realizar a impressão da árvore sintática. O retorno da aplicação informa que está pendente um retorno de algum método, mas não fica claro a razão pela qual o retorno não é produzido. Em face do problema no estado atual da construção da árvore sintática, não foram produzidas classes para representar os novos tipos de nodos possíveis para a árvore com base nas adições da linguagem X+++ em relação a X++.
