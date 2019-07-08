@@ -272,7 +272,6 @@ public class PrintTree {
 
         x.number = kk++;
         numberVarDeclListNode(x.param);
-        numberAtribDeclListNode(x.param);
         numberStatementNode(x.stat);
     }
 
@@ -286,7 +285,6 @@ public class PrintTree {
             ((x.param == null) ? "null" : String.valueOf(x.param.number)) +
             " " + x.stat.number);
         printVarDeclListNode(x.param);
-        printAtribDeclListNode(x.param);
         printStatementNode(x.stat);
     }
 
@@ -415,27 +413,6 @@ public class PrintTree {
         System.out.print(x.number + ": SuperNode ===> " +
             ((x.args == null) ? "null" : String.valueOf(x.args.number)));
         printExpreListNode(x.args);
-    }
-
-    // -------------------- Declaracão de atributo --------------------
-    public void numberAtribDeclNode(AtribDeclNode x) {
-        if (x == null) {
-            return;
-        }
-
-        x.number = kk++;
-        numberAtribNode((AtribNode) x.node);
-    }
-
-    public void printAtribDeclNode(AtribDeclNode x) {
-        if (x == null) {
-            return;
-        }
-
-        System.out.println();
-        System.out.print(x.number + ": AtribDeclNode ===> " + x.position.image +
-            " " + x.atrib.number);
-        printAtribNode((AtribNode) x.node);
     }
 
     // ------------------------- Comando de atribuição -------------------
@@ -961,6 +938,8 @@ public class PrintTree {
             printIndexNode((IndexNode) x);
         } else if (x instanceof DotNode) {
             printDotNode((DotNode) x);
+        } else if (x instanceof VarNode) {
+            printVarNode((VarNode) x);
         }
     }
 
@@ -997,6 +976,8 @@ public class PrintTree {
             numberIndexNode((IndexNode) x);
         } else if (x instanceof DotNode) {
             numberDotNode((DotNode) x);
+        } else if (x instanceof VarNode) {
+            numberVarNode((VarNode) x);
         }
     }
 
@@ -1006,8 +987,6 @@ public class PrintTree {
             printBlockNode((BlockNode) x);
         } else if (x instanceof VarDeclNode) {
             printVarDeclNode((VarDeclNode) x);
-        } else if (x instanceof AtribDeclNode) {
-            printAtribDeclNode((AtribDeclNode) x);
         } else if (x instanceof AtribNode) {
             printAtribNode((AtribNode) x);
         } else if (x instanceof IfNode) {
@@ -1026,10 +1005,6 @@ public class PrintTree {
             printSuperNode((SuperNode) x);
         } else if (x instanceof BreakNode) {
             printBreakNode((BreakNode) x);
-        } else if (x instanceof VarNode) {
-            printVarNode((VarNode) x);
-        } else if (x instanceof Call) {
-            printCallNode((CallNode) x);
         }
     }
 
@@ -1037,9 +1012,7 @@ public class PrintTree {
         if (x instanceof BlockNode) {
             numberBlockNode((BlockNode) x);
         } else if (x instanceof VarDeclNode) {
-            numberVarDeclNode((VarDeclNode) x);            
-        } else if (x instanceof AtribDeclNode) {
-            numberAtribDeclNode((AtribDeclNode) x);
+            numberVarDeclNode((VarDeclNode) x);
         } else if (x instanceof AtribNode) {
             numberAtribNode((AtribNode) x);
         } else if (x instanceof IfNode) {
@@ -1058,10 +1031,6 @@ public class PrintTree {
             numberSuperNode((SuperNode) x);
         } else if (x instanceof BreakNode) {
             numberBreakNode((BreakNode) x);
-        } else if (x instanceof VarNode) {
-            numberVarNode((VarNode) x);
-        } else if (x instanceof Call) {
-            numberCallNode((CallNode) x);
         }
     }
 }
